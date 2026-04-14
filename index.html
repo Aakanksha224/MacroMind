@@ -276,8 +276,88 @@ input, select, textarea { font-family: var(--font-body); outline: none; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* ===================== RESPONSIVE ===================== */
-@media (max-width: 960px) { .app-layout { grid-template-columns: 1fr; } .app-sidebar { position: static; } .charts-grid { grid-template-columns: 1fr; } }
-@media (max-width: 640px) { .nav { padding: 0 16px; } .nav-tabs { gap: 2px; } .nav-tab { padding: 7px 12px; font-size: 0.8rem; } .hero { padding: 60px 16px 40px; } .app-layout { padding: 16px; } .goals-form { grid-template-columns: 1fr; } .food-search-row { flex-wrap: wrap; } .food-grams-input, .cooking-state-sel { width: 100%; } .rings-grid { grid-template-columns: repeat(4,1fr); } }
+/* === TABLET === */
+@media (max-width: 960px) {
+  .app-layout { grid-template-columns: 1fr; }
+  .app-sidebar { position: static; }
+  .charts-grid { grid-template-columns: 1fr; }
+}
+
+/* === MOBILE === */
+@media (max-width: 640px) {
+  /* Nav */
+  .nav { padding: 0 12px; height: auto; min-height: 56px; flex-wrap: wrap; gap: 0; }
+  .nav-logo { padding: 10px 0; }
+  .nav-logo-text { font-size: 0.95rem; }
+  .nav-tabs { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 0 0 8px 0; gap: 2px; flex-wrap: nowrap; }
+  .nav-tab { padding: 6px 10px; font-size: 0.75rem; white-space: nowrap; flex-shrink: 0; }
+
+  /* Hero */
+  .hero { padding: 48px 16px 36px; }
+  .hero-stats { gap: 20px; }
+  .hero-stat-value { font-size: 1.5rem; }
+  .hero-cta { flex-direction: column; align-items: stretch; }
+  .btn-primary, .btn-secondary { text-align: center; }
+
+  /* Layout */
+  .app-layout { padding: 12px 12px 48px; gap: 16px; }
+  .app-main { min-width: 0; }
+
+  /* Meal cards */
+  .meal-card-header { padding: 14px 14px; gap: 10px; }
+  .meal-icon { width: 38px; height: 38px; font-size: 18px; }
+  .meal-name { font-size: 0.9rem; }
+  .meal-body { padding: 0 12px; }
+  .meal-card.expanded .meal-body { padding: 0 12px 14px; }
+
+  /* Search row: stack vertically */
+  .food-search-row { flex-direction: column; gap: 8px; }
+  .search-wrap { width: 100%; }
+  .food-search-input { width: 100%; }
+  .qty-size-group { width: 100%; }
+  .qty-size-inner { flex-wrap: wrap; }
+  .food-qty-input { flex: 1; min-width: 70px; }
+  .size-select { flex: 2; min-width: 120px; }
+  .food-grams-input { width: 100%; }
+  .cooking-state-sel { width: 100%; }
+  .mode-toggle-pill { align-self: flex-start; }
+  .btn-add-food { width: 100%; text-align: center; padding: 12px; }
+
+  /* Food table: make it horizontally scrollable */
+  #meal-cards-container .meal-body > div { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .food-entries-table { min-width: 480px; font-size: 0.78rem; }
+  .food-entries-table th, .food-entries-table td { padding: 8px 6px; }
+
+  /* Sidebar */
+  .sidebar-section { padding: 16px; }
+  .calories-big { font-size: 2.2rem; }
+  .rings-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .ring-value { font-size: 0.7rem; }
+  .ring-label { font-size: 0.62rem; }
+  .ring-pct { font-size: 0.58rem; }
+
+  /* History */
+  .history-layout { padding: 14px; }
+  .history-totals-row { gap: 12px; }
+
+  /* Analytics */
+  .analytics-layout { padding: 14px; }
+  .analytics-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .analytics-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .analytics-table { min-width: 540px; }
+
+  /* Goals */
+  .goals-layout { padding: 14px; }
+  .goals-form { grid-template-columns: 1fr; }
+
+  /* Date header */
+  .date-header { gap: 8px; }
+  .date-display { font-size: 1.1rem; }
+
+  /* Toast */
+  #toast-container { bottom: 12px; right: 12px; left: 12px; }
+  .toast { max-width: 100%; }
+}
 
 .divider { height: 1px; background: var(--glass-border); margin: 12px 0; }
 .page-header { margin-bottom: 24px; }
@@ -1364,10 +1444,10 @@ function buildEntriesTable(mealId, entries) {
     container.innerHTML = `<div class="empty-meal">No foods logged yet</div>`;
     return;
   }
-  container.innerHTML = `<table class="food-entries-table">
+  container.innerHTML = `<div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="food-entries-table">
     <thead><tr><th>Food</th><th>Amount</th><th>State</th><th>kcal</th><th>Protein</th><th></th></tr></thead>
     <tbody>${entries.map((e, i) => buildEntryRow(mealId, e, i)).join('')}</tbody>
-  </table>`;
+  </table></div>`;
 }
 
 function buildEntryRow(mealId, entry, idx) {
