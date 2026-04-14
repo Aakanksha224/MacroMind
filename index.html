@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MacroMind – Know What You Eat</title>
-<meta name="description" content="MacroMind is a premium nutrition tracking dashboard. Log meals, track macros and micronutrients, and gain deep insights into your daily diet.">
+<meta name="description" content="MacroMind is a premium nutrition tracking dashboard. Log meals, track macros and micronutrients with a comprehensive Indian food database and live API search.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
@@ -36,155 +36,52 @@
   --sidebar-w: 320px;
 }
 html { scroll-behavior: smooth; }
-body {
-  font-family: var(--font-body);
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 999px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-/* ===================== GRADIENT MESH BACKGROUND ===================== */
 body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: 0;
-  background:
-    radial-gradient(ellipse 60% 50% at 20% 10%, rgba(0,229,160,0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 60% at 85% 20%, rgba(79,158,255,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 50% 80%, rgba(0,229,160,0.04) 0%, transparent 60%);
+  content: ''; position: fixed; inset: 0; z-index: 0;
+  background: radial-gradient(ellipse 60% 50% at 20% 10%, rgba(0,229,160,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse 50% 60% at 85% 20%, rgba(79,158,255,0.07) 0%, transparent 60%),
+              radial-gradient(ellipse 40% 40% at 50% 80%, rgba(0,229,160,0.04) 0%, transparent 60%);
   pointer-events: none;
 }
 
-/* ===================== TYPOGRAPHY ===================== */
 h1,h2,h3,h4 { font-family: var(--font-heading); }
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; border: none; outline: none; font-family: var(--font-body); }
 input, select, textarea { font-family: var(--font-body); outline: none; }
 
 /* ===================== NAV ===================== */
-.nav {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(8,12,18,0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--glass-border);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 28px;
-  height: 64px;
-}
+.nav { position: sticky; top: 0; z-index: 100; background: rgba(8,12,18,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: space-between; padding: 0 28px; height: 64px; }
 .nav-logo { display: flex; align-items: center; gap: 10px; }
-.nav-logo-icon {
-  width: 36px; height: 36px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-}
+.nav-logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
 .nav-logo-text { font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
 .nav-tabs { display: flex; gap: 4px; }
-.nav-tab {
-  padding: 8px 18px;
-  border-radius: 8px;
-  font-size: 0.875rem; font-weight: 500;
-  color: var(--text2);
-  background: transparent;
-  transition: all var(--transition);
-  position: relative;
-}
+.nav-tab { padding: 8px 18px; border-radius: 8px; font-size: 0.875rem; font-weight: 500; color: var(--text2); background: transparent; transition: all var(--transition); position: relative; }
 .nav-tab:hover { color: var(--text); background: var(--glass); }
-.nav-tab.active {
-  color: var(--accent);
-  background: rgba(0,229,160,0.1);
-}
-.nav-tab.active::after {
-  content: '';
-  position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%);
-  width: 20px; height: 2px;
-  background: var(--accent);
-  border-radius: 999px;
-}
-.nav-settings-btn {
-  width: 36px; height: 36px; border-radius: 8px;
-  background: var(--glass); border: 1px solid var(--glass-border);
-  color: var(--text2); display: flex; align-items: center; justify-content: center;
-  transition: all var(--transition); font-size: 16px;
-}
-.nav-settings-btn:hover { color: var(--accent); border-color: var(--accent); background: rgba(0,229,160,0.08); }
+.nav-tab.active { color: var(--accent); background: rgba(0,229,160,0.1); }
+.nav-tab.active::after { content: ''; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%); width: 20px; height: 2px; background: var(--accent); border-radius: 999px; }
+
 
 /* ===================== HERO ===================== */
-.hero {
-  min-height: 100vh;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center;
-  padding: 80px 24px 60px;
-  position: relative; z-index: 1;
-}
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.2);
-  color: var(--accent); padding: 6px 14px; border-radius: 999px;
-  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em;
-  text-transform: uppercase; margin-bottom: 28px;
-}
-.hero h1 {
-  font-size: clamp(3rem, 8vw, 6rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
-  margin-bottom: 16px;
-  background: linear-gradient(135deg, #ffffff 30%, var(--accent) 70%, var(--accent2) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.hero-tagline {
-  font-size: clamp(1.2rem, 3vw, 1.6rem);
-  color: var(--accent); font-family: var(--font-heading);
-  font-weight: 600; margin-bottom: 20px; letter-spacing: -0.01em;
-}
-.hero-desc {
-  color: var(--text2); font-size: clamp(0.95rem, 2vw, 1.1rem);
-  max-width: 520px; line-height: 1.7; margin-bottom: 40px;
-}
-.hero-cta {
-  display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 64px;
-}
-.btn-primary {
-  padding: 14px 32px; border-radius: 12px;
-  background: linear-gradient(135deg, var(--accent), #00c488);
-  color: #080c12; font-weight: 700; font-size: 0.95rem;
-  transition: all var(--transition);
-  box-shadow: 0 0 0 0 var(--accent-glow);
-}
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px var(--accent-glow), 0 0 0 1px var(--accent);
-}
-.btn-secondary {
-  padding: 14px 32px; border-radius: 12px;
-  background: var(--glass); border: 1px solid var(--glass-border);
-  color: var(--text); font-weight: 600; font-size: 0.95rem;
-  transition: all var(--transition);
-}
+.hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 24px 60px; position: relative; z-index: 1; }
+.hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.2); color: var(--accent); padding: 6px 14px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 28px; }
+.hero h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 16px; background: linear-gradient(135deg, #ffffff 30%, var(--accent) 70%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-tagline { font-size: clamp(1.2rem, 3vw, 1.6rem); color: var(--accent); font-family: var(--font-heading); font-weight: 600; margin-bottom: 20px; letter-spacing: -0.01em; }
+.hero-desc { color: var(--text2); font-size: clamp(0.95rem, 2vw, 1.1rem); max-width: 520px; line-height: 1.7; margin-bottom: 40px; }
+.hero-cta { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 64px; }
+.btn-primary { padding: 14px 32px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), #00c488); color: #080c12; font-weight: 700; font-size: 0.95rem; transition: all var(--transition); box-shadow: 0 0 0 0 var(--accent-glow); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--accent-glow), 0 0 0 1px var(--accent); }
+.btn-secondary { padding: 14px 32px; border-radius: 12px; background: var(--glass); border: 1px solid var(--glass-border); color: var(--text); font-weight: 600; font-size: 0.95rem; transition: all var(--transition); }
 .btn-secondary:hover { background: var(--glass-hover); border-color: var(--accent2); color: var(--accent2); transform: translateY(-2px); }
-.hero-scroll {
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  color: var(--text3); font-size: 0.8rem; letter-spacing: 0.04em; cursor: pointer;
-  animation: bounce 2s infinite;
-}
+.hero-scroll { display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--text3); font-size: 0.8rem; letter-spacing: 0.04em; cursor: pointer; animation: bounce 2s infinite; }
 .hero-scroll svg { opacity: 0.5; }
-@keyframes bounce {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(8px); }
-}
-.hero-stats {
-  display: flex; gap: 40px; flex-wrap: wrap; justify-content: center;
-  margin-bottom: 60px;
-}
+@keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+.hero-stats { display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; margin-bottom: 60px; }
 .hero-stat { text-align: center; }
 .hero-stat-value { font-family: var(--font-heading); font-size: 2rem; font-weight: 800; color: var(--accent); }
 .hero-stat-label { font-size: 0.8rem; color: var(--text2); margin-top: 2px; }
@@ -194,249 +91,141 @@ input, select, textarea { font-family: var(--font-body); outline: none; }
 .page.active { display: block; }
 
 /* ===================== MAIN LAYOUT ===================== */
-.app-layout {
-  display: grid;
-  grid-template-columns: 1fr var(--sidebar-w);
-  gap: 24px;
-  padding: 24px 24px 60px;
-  max-width: 1400px;
-  margin: 0 auto;
-  align-items: start;
-}
+.app-layout { display: grid; grid-template-columns: 1fr var(--sidebar-w); gap: 24px; padding: 24px 24px 60px; max-width: 1400px; margin: 0 auto; align-items: start; }
 .app-main { min-width: 0; }
-.app-sidebar {
-  position: sticky; top: 88px;
-  display: flex; flex-direction: column; gap: 16px;
-}
+.app-sidebar { position: sticky; top: 88px; display: flex; flex-direction: column; gap: 16px; }
 
 /* ===================== GLASS CARD ===================== */
-.glass-card {
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: border-color var(--transition);
-}
+.glass-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: var(--radius); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: border-color var(--transition); }
 .glass-card:hover { border-color: rgba(255,255,255,0.12); }
 
 /* ===================== SETTINGS PANEL ===================== */
-.settings-panel {
-  background: rgba(8,12,18,0.95);
-  border-bottom: 1px solid var(--glass-border);
-  padding: 0 28px;
-  transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), padding 0.4s;
-  overflow: hidden;
-  max-height: 0;
-}
-.settings-panel.open { max-height: 200px; padding: 20px 28px; }
-.settings-inner {
-  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-}
-.settings-label { font-size: 0.875rem; font-weight: 600; color: var(--text2); white-space: nowrap; }
-.settings-input-wrap { position: relative; flex: 1; min-width: 200px; }
-.settings-input {
-  width: 100%; padding: 10px 14px;
-  background: var(--glass); border: 1px solid var(--glass-border);
-  border-radius: 10px; color: var(--text); font-size: 0.875rem;
-  transition: border-color var(--transition);
-}
-.settings-input:focus { border-color: var(--accent2); }
-.btn-save-key {
-  padding: 10px 20px; border-radius: 10px;
-  background: rgba(79,158,255,0.15); border: 1px solid rgba(79,158,255,0.3);
-  color: var(--accent2); font-weight: 600; font-size: 0.875rem;
-  transition: all var(--transition);
-}
-.btn-save-key:hover { background: rgba(79,158,255,0.25); transform: translateY(-1px); }
-.key-status { font-size: 0.8rem; padding: 4px 10px; border-radius: 6px; }
-.key-status.saved { background: rgba(0,229,160,0.1); color: var(--accent); }
+
 
 /* ===================== DATE HEADER ===================== */
-.date-header {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 20px;
-}
+.date-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
 .date-display { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; }
 .date-sub { font-size: 0.85rem; color: var(--text2); margin-top: 2px; }
-.btn-icon {
-  width: 36px; height: 36px; border-radius: 8px;
-  background: var(--glass); border: 1px solid var(--glass-border);
-  color: var(--text2); display: flex; align-items: center; justify-content: center;
-  transition: all var(--transition); font-size: 14px;
-}
+.btn-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--glass); border: 1px solid var(--glass-border); color: var(--text2); display: flex; align-items: center; justify-content: center; transition: all var(--transition); font-size: 14px; }
 .btn-icon:hover { color: var(--accent); border-color: var(--accent); background: rgba(0,229,160,0.08); }
 
 /* ===================== MEAL CARDS ===================== */
 .meal-card { margin-bottom: 16px; overflow: visible; }
-.meal-card-header {
-  display: flex; align-items: center; gap: 14px;
-  padding: 18px 20px; cursor: pointer;
-  transition: background var(--transition); border-radius: var(--radius);
-  user-select: none;
-}
+.meal-card-header { display: flex; align-items: center; gap: 14px; padding: 18px 20px; cursor: pointer; transition: background var(--transition); border-radius: var(--radius); user-select: none; }
 .meal-card-header:hover { background: rgba(255,255,255,0.02); }
-.meal-icon {
-  width: 44px; height: 44px; border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px; flex-shrink: 0;
-}
+.meal-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
 .meal-info { flex: 1; }
 .meal-name { font-family: var(--font-heading); font-weight: 700; font-size: 1rem; }
 .meal-cal-total { font-size: 0.8rem; color: var(--text2); margin-top: 2px; }
-.meal-cal-badge {
-  padding: 4px 12px; border-radius: 999px;
-  font-size: 0.8rem; font-weight: 600;
-  background: rgba(255,255,255,0.05); color: var(--text2);
-  border: 1px solid var(--glass-border);
-}
-.meal-chevron {
-  transition: transform 0.3s; color: var(--text3); font-size: 12px;
-}
+.meal-cal-badge { padding: 4px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; background: rgba(255,255,255,0.05); color: var(--text2); border: 1px solid var(--glass-border); }
+.meal-chevron { transition: transform 0.3s; color: var(--text3); font-size: 12px; }
 .meal-card.expanded .meal-chevron { transform: rotate(180deg); }
-.meal-body {
-  max-height: 0; overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
-  padding: 0 20px;
-}
-.meal-card.expanded .meal-body { max-height: 2000px; padding: 0 20px 18px; }
+.meal-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1); padding: 0 20px; }
+.meal-card.expanded .meal-body { max-height: 3000px; padding: 0 20px 18px; }
 
-/* food search */
-.food-search-row { display: flex; gap: 8px; margin-bottom: 12px; position: relative; }
-.food-search-input {
-  flex: 1; padding: 10px 14px;
-  background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border);
-  border-radius: 10px; color: var(--text); font-size: 0.875rem;
-  transition: border-color var(--transition);
-}
+/* ===================== FOOD SEARCH ROW ===================== */
+.food-search-row { display: flex; gap: 8px; margin-bottom: 12px; position: relative; flex-wrap: wrap; align-items: flex-start; }
+.search-wrap { position: relative; flex: 1; min-width: 180px; }
+.food-search-input { width: 100%; padding: 10px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text); font-size: 0.875rem; transition: border-color var(--transition); }
 .food-search-input:focus { border-color: var(--accent); }
-.food-grams-input {
-  width: 90px; padding: 10px 14px;
-  background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border);
-  border-radius: 10px; color: var(--text); font-size: 0.875rem;
-  transition: border-color var(--transition);
-}
+
+/* qty inputs group */
+.qty-size-group { display: none; flex-direction: column; gap: 4px; }
+.qty-size-group.visible { display: flex; }
+.qty-size-inner { display: flex; gap: 6px; align-items: center; }
+.food-qty-input { width: 70px; padding: 10px 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text); font-size: 0.875rem; transition: border-color var(--transition); }
+.food-qty-input:focus { border-color: var(--accent); }
+.size-select { padding: 10px 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text); font-size: 0.8rem; -webkit-appearance: none; min-width: 100px; }
+.size-select:focus { border-color: var(--accent); }
+.unit-hint { font-size: 0.7rem; color: var(--text3); padding-left: 2px; }
+
+/* grams input */
+.food-grams-input { width: 90px; padding: 10px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text); font-size: 0.875rem; transition: border-color var(--transition); }
 .food-grams-input:focus { border-color: var(--accent); }
-.cooking-state-sel {
-  width: 110px; padding: 10px 10px;
-  background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border);
-  border-radius: 10px; color: var(--text); font-size: 0.875rem;
-  transition: border-color var(--transition);
-  display: none;
-  -webkit-appearance: none;
-}
+
+/* mode toggle pill */
+.mode-toggle-pill { display: none; padding: 5px 10px; border-radius: 999px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.03em; background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.25); color: var(--accent); cursor: pointer; transition: all var(--transition); white-space: nowrap; align-self: center; }
+.mode-toggle-pill.visible { display: block; }
+.mode-toggle-pill.grams-active { background: rgba(79,158,255,0.1); border-color: rgba(79,158,255,0.25); color: var(--accent2); }
+.mode-toggle-pill:hover { transform: scale(1.05); }
+
+/* cooking state */
+.cooking-state-sel { width: 110px; padding: 10px 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text); font-size: 0.875rem; transition: border-color var(--transition); display: none; -webkit-appearance: none; }
 .cooking-state-sel.visible { display: block; }
 .cooking-state-sel:focus { border-color: var(--accent2); }
-.btn-add-food {
-  padding: 10px 16px; border-radius: 10px;
-  background: linear-gradient(135deg, var(--accent), #00c488);
-  color: #080c12; font-weight: 700; font-size: 0.8rem;
-  transition: all var(--transition); white-space: nowrap;
-}
+
+.btn-add-food { padding: 10px 16px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), #00c488); color: #080c12; font-weight: 700; font-size: 0.8rem; transition: all var(--transition); white-space: nowrap; align-self: flex-start; }
 .btn-add-food:hover { transform: translateY(-1px); box-shadow: 0 4px 16px var(--accent-glow); }
 .btn-add-food:disabled { opacity: 0.5; transform: none; cursor: not-allowed; }
 
-/* autocomplete */
-.autocomplete-dropdown {
-  position: absolute; top: calc(100% + 4px); left: 0; right: 0;
-  background: #12192a; border: 1px solid var(--glass-border);
-  border-radius: var(--radius-sm); z-index: 200;
-  max-height: 260px; overflow-y: auto;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
-  display: none;
-}
+/* ===================== AUTOCOMPLETE ===================== */
+.autocomplete-dropdown { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: #12192a; border: 1px solid var(--glass-border); border-radius: var(--radius-sm); z-index: 200; max-height: 300px; overflow-y: auto; box-shadow: 0 16px 40px rgba(0,0,0,0.5); display: none; }
 .autocomplete-dropdown.open { display: block; }
-.autocomplete-item {
-  padding: 10px 14px; cursor: pointer;
-  transition: background var(--transition); position: relative;
-}
+.autocomplete-item { padding: 10px 14px; cursor: pointer; transition: background var(--transition); position: relative; display: flex; flex-direction: column; gap: 2px; }
 .autocomplete-item:hover, .autocomplete-item.focused { background: var(--glass-hover); }
+.autocomplete-item-top { display: flex; align-items: center; gap: 8px; padding-right: 56px; }
 .autocomplete-item-name { font-size: 0.875rem; font-weight: 500; }
-.autocomplete-item-meta { font-size: 0.75rem; color: var(--text2); margin-top: 2px; }
-.autocomplete-source {
-  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-  font-size: 0.65rem; padding: 2px 6px; border-radius: 4px;
-}
+.autocomplete-item-meta { font-size: 0.75rem; color: var(--text2); }
+.autocomplete-source { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; letter-spacing: 0.04em; white-space: nowrap; }
 .source-usda { background: rgba(79,158,255,0.15); color: var(--accent2); }
+.source-off  { background: rgba(255,181,71,0.15); color: var(--warning); }
+.source-wger { background: rgba(167,139,250,0.15); color: #a78bfa; }
 .source-local { background: rgba(0,229,160,0.1); color: var(--accent); }
 .autocomplete-empty { padding: 14px; font-size: 0.85rem; color: var(--text2); text-align: center; }
+.autocomplete-loading { padding: 10px 14px; }
 
-/* food entries table */
+/* shimmer */
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.shimmer-line { height: 11px; border-radius: 6px; margin-bottom: 5px; background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.09) 50%, rgba(255,255,255,0.04) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; }
+.shimmer-line.short { width: 55%; }
+
+/* ===================== FOOD ENTRIES TABLE ===================== */
 .food-entries-table { width: 100%; border-collapse: collapse; }
-.food-entries-table th {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
-  color: var(--text3); padding: 6px 10px; text-align: left;
-  border-bottom: 1px solid var(--glass-border);
-}
+.food-entries-table th { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text3); padding: 6px 10px; text-align: left; border-bottom: 1px solid var(--glass-border); }
 .food-entries-table td { padding: 10px 10px; font-size: 0.85rem; vertical-align: middle; }
 .food-entries-table tr { border-bottom: 1px solid rgba(255,255,255,0.03); transition: background var(--transition); }
 .food-entries-table tr:hover { background: rgba(255,255,255,0.02); }
 .food-entries-table tr:last-child { border-bottom: none; }
 .entry-actions { display: flex; gap: 4px; justify-content: flex-end; }
-.btn-entry-action {
-  width: 28px; height: 28px; border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; transition: all var(--transition);
-  background: transparent; border: 1px solid transparent;
-}
+.btn-entry-action { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; transition: all var(--transition); background: transparent; border: 1px solid transparent; }
 .btn-edit { color: var(--accent2); }
 .btn-edit:hover { background: rgba(79,158,255,0.15); border-color: rgba(79,158,255,0.3); }
 .btn-delete { color: var(--danger); }
 .btn-delete:hover { background: rgba(255,79,106,0.15); border-color: rgba(255,79,106,0.3); }
 .btn-save-entry { color: var(--accent); }
 .btn-save-entry:hover { background: rgba(0,229,160,0.15); border-color: rgba(0,229,160,0.3); }
-.entry-edit-input {
-  width: 100%; background: rgba(255,255,255,0.04);
-  border: 1px solid var(--accent2); border-radius: 6px;
-  color: var(--text); padding: 4px 8px; font-size: 0.85rem;
-}
+.entry-edit-input { width: 70px; background: rgba(255,255,255,0.04); border: 1px solid var(--accent2); border-radius: 6px; color: var(--text); padding: 4px 8px; font-size: 0.85rem; }
+.entry-edit-input-wide { width: 110px; background: rgba(255,255,255,0.04); border: 1px solid var(--accent2); border-radius: 6px; color: var(--text); padding: 4px 8px; font-size: 0.85rem; }
+.entry-edit-select { background: rgba(255,255,255,0.04); border: 1px solid var(--accent2); border-radius: 6px; color: var(--text); padding: 4px 6px; font-size: 0.8rem; -webkit-appearance: none; }
+.entry-qty-toggle { padding: 2px 7px; border-radius: 999px; font-size: 0.62rem; font-weight: 700; background: rgba(0,229,160,0.08); border: 1px solid rgba(0,229,160,0.2); color: var(--accent); cursor: pointer; transition: all var(--transition); margin-left: 4px; white-space: nowrap; }
+.entry-qty-toggle.gram-mode { background: rgba(79,158,255,0.08); border-color: rgba(79,158,255,0.2); color: var(--accent2); }
+.entry-qty-toggle:hover { transform: scale(1.05); }
 .empty-meal { text-align: center; padding: 20px; color: var(--text3); font-size: 0.85rem; }
 
 /* ===================== SIDEBAR ===================== */
 .sidebar-section { padding: 20px; }
 .sidebar-title { font-family: var(--font-heading); font-weight: 700; font-size: 1rem; margin-bottom: 16px; }
-.calories-big {
-  font-family: var(--font-heading); font-weight: 800;
-  font-size: 2.8rem; letter-spacing: -0.04em;
-  background: linear-gradient(135deg, var(--accent), #00c488);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text; line-height: 1;
-}
+.calories-big { font-family: var(--font-heading); font-weight: 800; font-size: 2.8rem; letter-spacing: -0.04em; background: linear-gradient(135deg, var(--accent), #00c488); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; }
 .calories-label { font-size: 0.8rem; color: var(--text2); margin-top: 4px; }
 .calories-goal { font-size: 0.8rem; color: var(--text3); margin-top: 2px; }
-
-/* progress rings */
 .rings-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin-top: 16px; }
 .ring-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .ring-svg { position: relative; }
 .ring-value { font-family: var(--font-heading); font-weight: 700; font-size: 0.8rem; }
 .ring-label { font-size: 0.7rem; color: var(--text2); text-align: center; }
 .ring-pct { font-size: 0.65rem; color: var(--text3); text-align: center; }
-
-/* micronutrient bars */
 .micro-bars { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
 .micro-bar-item {}
 .micro-bar-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
 .micro-bar-name { font-size: 0.78rem; font-weight: 500; }
 .micro-bar-vals { font-size: 0.72rem; color: var(--text3); }
-.micro-bar-track {
-  height: 5px; border-radius: 999px;
-  background: rgba(255,255,255,0.06);
-  overflow: hidden;
-}
-.micro-bar-fill {
-  height: 100%; border-radius: 999px;
-  transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
-}
+.micro-bar-track { height: 5px; border-radius: 999px; background: rgba(255,255,255,0.06); overflow: hidden; }
+.micro-bar-fill { height: 100%; border-radius: 999px; transition: width 0.6s cubic-bezier(0.4,0,0.2,1); }
 
 /* ===================== HISTORY PAGE ===================== */
 .history-layout { padding: 24px; max-width: 900px; margin: 0 auto; }
 .history-date-pick { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
-.history-date-input {
-  padding: 10px 14px; background: var(--glass); border: 1px solid var(--glass-border);
-  border-radius: 10px; color: var(--text); font-size: 0.875rem;
-  color-scheme: dark;
-}
+.history-date-input { padding: 10px 14px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text); font-size: 0.875rem; color-scheme: dark; }
 .history-date-input:focus { border-color: var(--accent); }
 .history-log-card { margin-bottom: 16px; }
 .history-meal-section { padding: 12px 16px; border-bottom: 1px solid var(--glass-border); }
@@ -453,23 +242,15 @@ input, select, textarea { font-family: var(--font-body); outline: none; }
 .analytics-layout { padding: 24px; max-width: 1100px; margin: 0 auto; }
 .analytics-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
 .toggle-group { display: flex; gap: 4px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 10px; padding: 4px; }
-.toggle-btn {
-  padding: 7px 16px; border-radius: 7px; font-size: 0.8rem; font-weight: 600;
-  color: var(--text2); background: transparent; transition: all var(--transition);
-}
+.toggle-btn { padding: 7px 16px; border-radius: 7px; font-size: 0.8rem; font-weight: 600; color: var(--text2); background: transparent; transition: all var(--transition); }
 .toggle-btn.active { background: var(--accent); color: #080c12; }
 .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
 .chart-card { padding: 20px; }
 .chart-title { font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; margin-bottom: 16px; }
 .chart-wrap { position: relative; height: 220px; }
-/* analytics table */
 .analytics-table-wrap { overflow-x: auto; }
 .analytics-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-.analytics-table th {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
-  color: var(--text3); padding: 10px 12px; text-align: left;
-  border-bottom: 1px solid var(--glass-border); white-space: nowrap;
-}
+.analytics-table th { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text3); padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--glass-border); white-space: nowrap; }
 .analytics-table td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); }
 
 /* ===================== GOALS PAGE ===================== */
@@ -477,65 +258,28 @@ input, select, textarea { font-family: var(--font-body); outline: none; }
 .goals-form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
 .goal-field { display: flex; flex-direction: column; gap: 6px; }
 .goal-label { font-size: 0.8rem; font-weight: 600; color: var(--text2); }
-.goal-input {
-  padding: 12px 14px;
-  background: var(--glass); border: 1px solid var(--glass-border);
-  border-radius: 10px; color: var(--text); font-size: 0.95rem;
-  transition: border-color var(--transition);
-}
+.goal-input { padding: 12px 14px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text); font-size: 0.95rem; transition: border-color var(--transition); }
 .goal-input:focus { border-color: var(--accent); }
 .goal-unit { font-size: 0.75rem; color: var(--text3); }
-.btn-save-goals {
-  grid-column: 1/-1; margin-top: 8px;
-  padding: 14px; border-radius: 12px;
-  background: linear-gradient(135deg, var(--accent), #00c488);
-  color: #080c12; font-weight: 700; font-size: 0.95rem;
-  transition: all var(--transition);
-}
+.btn-save-goals { grid-column: 1/-1; margin-top: 8px; padding: 14px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), #00c488); color: #080c12; font-weight: 700; font-size: 0.95rem; transition: all var(--transition); }
 .btn-save-goals:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--accent-glow); }
 
 /* ===================== TOAST ===================== */
 #toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
-.toast {
-  padding: 12px 20px; border-radius: 10px; font-size: 0.875rem; font-weight: 500;
-  backdrop-filter: blur(16px); border: 1px solid var(--glass-border);
-  animation: toast-in 0.3s ease; max-width: 320px;
-}
+.toast { padding: 12px 20px; border-radius: 10px; font-size: 0.875rem; font-weight: 500; backdrop-filter: blur(16px); border: 1px solid var(--glass-border); animation: toast-in 0.3s ease; max-width: 320px; }
 .toast.success { background: rgba(0,229,160,0.15); color: var(--accent); border-color: rgba(0,229,160,0.3); }
 .toast.error { background: rgba(255,79,106,0.15); color: var(--danger); border-color: rgba(255,79,106,0.3); }
 .toast.info { background: rgba(79,158,255,0.15); color: var(--accent2); border-color: rgba(79,158,255,0.3); }
 @keyframes toast-in { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 
-/* ===================== LOADING ===================== */
-.spinner {
-  width: 16px; height: 16px; border-radius: 50%;
-  border: 2px solid rgba(0,229,160,0.2); border-top-color: var(--accent);
-  animation: spin 0.6s linear infinite; display: inline-block;
-}
+.spinner { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(0,229,160,0.2); border-top-color: var(--accent); animation: spin 0.6s linear infinite; display: inline-block; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* ===================== RESPONSIVE ===================== */
-@media (max-width: 960px) {
-  .app-layout { grid-template-columns: 1fr; }
-  .app-sidebar { position: static; }
-  .charts-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 640px) {
-  .nav { padding: 0 16px; }
-  .nav-tabs { gap: 2px; }
-  .nav-tab { padding: 7px 12px; font-size: 0.8rem; }
-  .hero { padding: 60px 16px 40px; }
-  .app-layout { padding: 16px; }
-  .goals-form { grid-template-columns: 1fr; }
-  .food-search-row { flex-wrap: wrap; }
-  .food-grams-input, .cooking-state-sel { width: 100%; }
-  .rings-grid { grid-template-columns: repeat(4,1fr); }
-}
+@media (max-width: 960px) { .app-layout { grid-template-columns: 1fr; } .app-sidebar { position: static; } .charts-grid { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .nav { padding: 0 16px; } .nav-tabs { gap: 2px; } .nav-tab { padding: 7px 12px; font-size: 0.8rem; } .hero { padding: 60px 16px 40px; } .app-layout { padding: 16px; } .goals-form { grid-template-columns: 1fr; } .food-search-row { flex-wrap: wrap; } .food-grams-input, .cooking-state-sel { width: 100%; } .rings-grid { grid-template-columns: repeat(4,1fr); } }
 
-/* ===================== DIVIDER ===================== */
 .divider { height: 1px; background: var(--glass-border); margin: 12px 0; }
-
-/* page header */
 .page-header { margin-bottom: 24px; }
 .page-header h2 { font-family: var(--font-heading); font-weight: 700; font-size: 1.5rem; }
 .page-header p { font-size: 0.875rem; color: var(--text2); margin-top: 4px; }
@@ -556,21 +300,10 @@ input, select, textarea { font-family: var(--font-body); outline: none; }
     <button class="nav-tab" id="tab-analytics" onclick="showPage('analytics'); loadAnalytics()">Analytics</button>
     <button class="nav-tab" id="tab-goals" onclick="showPage('goals'); loadGoals()">Goals</button>
   </div>
-  <button class="nav-settings-btn" id="settings-toggle-btn" onclick="toggleSettings()" title="Settings">⚙️</button>
+
 </nav>
 
-<!-- ===================== SETTINGS PANEL ===================== -->
-<div class="settings-panel" id="settings-panel">
-  <div class="settings-inner">
-    <span class="settings-label">USDA API Key</span>
-    <div class="settings-input-wrap">
-      <input type="password" class="settings-input" id="api-key-input" placeholder="Enter your USDA FoodData Central API key…">
-    </div>
-    <button class="btn-save-key" onclick="saveApiKey()">Save Key</button>
-    <span class="key-status saved" id="key-status" style="display:none">✓ Key saved</span>
-    <button class="btn-secondary" style="padding:8px 14px;font-size:0.8rem;border-radius:8px;" onclick="window.open('https://fdc.nal.usda.gov/api-key-signup.html','_blank')">Get Free Key ↗</button>
-  </div>
-</div>
+
 
 <!-- ===================== HERO PAGE ===================== -->
 <div id="page-hero" class="page active">
@@ -578,19 +311,16 @@ input, select, textarea { font-family: var(--font-body); outline: none; }
     <div class="hero-badge">🌿 Premium Nutrition Intelligence</div>
     <h1>MacroMind</h1>
     <p class="hero-tagline">Know What You Eat</p>
-    <p class="hero-desc">
-      Track every macro, every micro. From breakfast to dinner, MacroMind gives you
-      real-time nutritional intelligence powered by USDA's FoodData Central database.
-    </p>
+    <p class="hero-desc">Track every macro, every micro. From breakfast to dinner, MacroMind gives you real-time nutritional intelligence with 300+ Indian foods built-in and live search across multiple databases.</p>
     <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-value">300+</div><div class="hero-stat-label">Local Foods</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">3</div><div class="hero-stat-label">Live APIs</div></div>
       <div class="hero-stat"><div class="hero-stat-value">10+</div><div class="hero-stat-label">Nutrients Tracked</div></div>
-      <div class="hero-stat"><div class="hero-stat-value">5</div><div class="hero-stat-label">Meal Sections</div></div>
-      <div class="hero-stat"><div class="hero-stat-value">∞</div><div class="hero-stat-label">Foods Available</div></div>
       <div class="hero-stat"><div class="hero-stat-value">0</div><div class="hero-stat-label">Subscriptions</div></div>
     </div>
     <div class="hero-cta">
       <button class="btn-primary" onclick="showPage('today')">Start Tracking →</button>
-      <button class="btn-secondary" onclick="toggleSettings()">Add API Key</button>
+
     </div>
     <div class="hero-scroll" onclick="showPage('today')">
       <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
@@ -602,8 +332,6 @@ input, select, textarea { font-family: var(--font-body); outline: none; }
 <!-- ===================== TODAY PAGE ===================== -->
 <div id="page-today" class="page">
   <div class="app-layout">
-
-    <!-- MAIN -->
     <div class="app-main">
       <div class="date-header">
         <div>
@@ -616,12 +344,8 @@ input, select, textarea { font-family: var(--font-body); outline: none; }
           <button class="btn-icon" title="Next day" onclick="changeDay(1)">›</button>
         </div>
       </div>
-
-      <!-- MEAL CARDS -->
       <div id="meal-cards-container"></div>
     </div>
-
-    <!-- SIDEBAR -->
     <aside class="app-sidebar">
       <div class="glass-card sidebar-section">
         <div class="sidebar-title">Daily Summary</div>
@@ -636,17 +360,13 @@ input, select, textarea { font-family: var(--font-body); outline: none; }
         <div class="micro-bars" id="micro-bars-container"></div>
       </div>
     </aside>
-
   </div>
 </div>
 
 <!-- ===================== HISTORY PAGE ===================== -->
 <div id="page-history" class="page">
   <div class="history-layout">
-    <div class="page-header">
-      <h2>History</h2>
-      <p>Review your past meals and nutritional data</p>
-    </div>
+    <div class="page-header"><h2>History</h2><p>Review your past meals and nutritional data</p></div>
     <div class="history-date-pick">
       <label style="font-size:0.875rem;color:var(--text2)">Select date:</label>
       <input type="date" class="history-date-input" id="history-date-input" onchange="loadHistory()">
@@ -659,33 +379,20 @@ input, select, textarea { font-family: var(--font-body); outline: none; }
 <div id="page-analytics" class="page">
   <div class="analytics-layout">
     <div class="analytics-header">
-      <div class="page-header" style="margin:0">
-        <h2>Analytics</h2>
-        <p>Trends and nutritional patterns</p>
-      </div>
+      <div class="page-header" style="margin:0"><h2>Analytics</h2><p>Trends and nutritional patterns</p></div>
       <div class="toggle-group">
         <button class="toggle-btn active" id="toggle-7" onclick="setAnalyticsPeriod(7)">7 Days</button>
         <button class="toggle-btn" id="toggle-30" onclick="setAnalyticsPeriod(30)">30 Days</button>
       </div>
     </div>
     <div class="charts-grid">
-      <div class="glass-card chart-card">
-        <div class="chart-title">Daily Calories</div>
-        <div class="chart-wrap"><canvas id="cal-chart"></canvas></div>
-      </div>
-      <div class="glass-card chart-card">
-        <div class="chart-title">Protein Trend (g)</div>
-        <div class="chart-wrap"><canvas id="protein-chart"></canvas></div>
-      </div>
+      <div class="glass-card chart-card"><div class="chart-title">Daily Calories</div><div class="chart-wrap"><canvas id="cal-chart"></canvas></div></div>
+      <div class="glass-card chart-card"><div class="chart-title">Protein Trend (g)</div><div class="chart-wrap"><canvas id="protein-chart"></canvas></div></div>
     </div>
     <div class="glass-card">
       <div class="analytics-table-wrap" style="padding:16px">
         <table class="analytics-table" id="analytics-table">
-          <thead>
-            <tr>
-              <th>Date</th><th>Calories</th><th>Protein</th><th>Carbs</th><th>Fat</th><th>B12 (µg)</th><th>Vit D (µg)</th><th>Calcium (mg)</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Date</th><th>Calories</th><th>Protein</th><th>Carbs</th><th>Fat</th><th>B12 (µg)</th><th>Vit D (µg)</th><th>Calcium (mg)</th></tr></thead>
           <tbody id="analytics-tbody"></tbody>
         </table>
       </div>
@@ -696,863 +403,1371 @@ input, select, textarea { font-family: var(--font-body); outline: none; }
 <!-- ===================== GOALS PAGE ===================== -->
 <div id="page-goals" class="page">
   <div class="goals-layout">
-    <div class="page-header">
-      <h2>Daily Goals</h2>
-      <p>Set your personal nutritional targets</p>
-    </div>
-    <div class="glass-card" style="padding:24px">
-      <div class="goals-form" id="goals-form">
-        <!-- injected by JS -->
-      </div>
-    </div>
+    <div class="page-header"><h2>Daily Goals</h2><p>Set your personal nutritional targets</p></div>
+    <div class="glass-card" style="padding:24px"><div class="goals-form" id="goals-form"></div></div>
   </div>
 </div>
 
-<!-- ===================== TOAST CONTAINER ===================== -->
 <div id="toast-container"></div>
 
-<!-- ===================== JAVASCRIPT ===================== -->
 <script>
 // ═══════════════════════════════════════════════════════════
-//  DATA MODELS & STORAGE
+//  SIZE PRESETS
+// ═══════════════════════════════════════════════════════════
+const SZ_ROTI    = [{name:'Small',grams:25},{name:'Regular',grams:35},{name:'Large',grams:45}];
+const SZ_PARATHA = [{name:'Small',grams:50},{name:'Regular',grams:70},{name:'Large',grams:90}];
+const SZ_IDLI    = [{name:'Small',grams:30},{name:'Regular',grams:45},{name:'Large',grams:60}];
+const SZ_DOSA    = [{name:'Small',grams:60},{name:'Regular',grams:90},{name:'Large',grams:120}];
+const SZ_EGG     = [{name:'Small',grams:40},{name:'Regular',grams:50},{name:'Large',grams:60}];
+const SZ_BREAD   = [{name:'Thin',grams:20},{name:'Regular',grams:30},{name:'Thick',grams:40}];
+const SZ_SAMOSA  = [{name:'Small',grams:50},{name:'Regular',grams:80},{name:'Large',grams:100}];
+const SZ_VADA    = [{name:'Small',grams:30},{name:'Regular',grams:50},{name:'Large',grams:70}];
+const SZ_PURI    = [{name:'Small',grams:20},{name:'Regular',grams:25},{name:'Large',grams:30}];
+const SZ_NAAN    = [{name:'Small',grams:60},{name:'Regular',grams:90},{name:'Large',grams:120}];
+const SZ_UTTAPAM = [{name:'Small',grams:80},{name:'Regular',grams:120},{name:'Large',grams:160}];
+const SZ_PIECE1  = [{name:'1 piece',grams:1}];
+
+// ═══════════════════════════════════════════════════════════
+//  LOCAL FOODS DATABASE
+// ═══════════════════════════════════════════════════════════
+function mkF(name, aliases, mt, ncs, rcf, sizes, uw, cals, prot, carbs, fat, fib, b12, mag, vitD, calc, o3, o6) {
+  return {
+    name, aliases: Array.isArray(aliases) ? aliases : (aliases ? aliases.split(',') : []),
+    measureType: mt, needsCookingState: !!ncs, rawToCookedFactor: rcf||null,
+    sizes: sizes||null, unitWeight: uw||null, source: 'local',
+    per100g: { calories:cals||0, protein:prot||0, carbs:carbs||0, fat:fat||0, fiber:fib||0,
+               b12:b12||0, magnesium:mag||0, vitaminD:vitD||0, calcium:calc||0, omega3:o3||0, omega6:o6||0 }
+  };
+}
+const G='grams', Q='qty';
+
+const LOCAL_FOODS_DB = [
+  // ── GRAINS RAW ──
+  mkF('Rice (raw)',['chawal','white rice raw','sona masoori raw','rice uncooked'],G,true,3.0,null,null,365,7.0,80.0,0.7,1.3,0,35,0,28,0.03,0.16),
+  mkF('Brown Rice (raw)',['brown rice uncooked','whole grain rice raw'],G,true,2.8,null,null,370,7.9,77.0,2.9,3.5,0,143,0,33,0.04,0.9),
+  mkF('Basmati Rice (raw)',['basmati uncooked','long grain rice'],G,true,3.0,null,null,349,7.5,77.8,0.5,0.9,0,29,0,29,0.02,0.1),
+  mkF('Rice (cooked)',['cooked rice','steamed rice','plain rice','boiled rice','chawal cooked'],G,false,null,null,null,130,2.7,28.2,0.3,0.4,0,13,0,10,0.01,0.06),
+  mkF('Oats (raw)',['rolled oats','quick oats','oatmeal uncooked'],G,true,2.0,null,null,389,16.9,66.3,6.9,10.6,0,177,0,54,0.11,2.42),
+  mkF('Oatmeal (cooked)',['oats cooked','porridge','oatmeal bowl'],G,false,null,null,null,71,2.5,12.0,1.5,1.7,0,26,0,8,0.02,0.4),
+  mkF('Atta (whole wheat flour)',['wheat flour','chapati flour','gehun atta','whole wheat'],G,false,null,null,null,348,12.5,72.0,1.8,10.7,0,138,0,48,0.06,0.78),
+  mkF('Maida (refined flour)',['all purpose flour','plain flour','refined wheat flour'],G,false,null,null,null,353,10.0,76.0,1.1,2.7,0,22,0,15,0.03,0.3),
+  mkF('Sooji / Semolina (rava)',['rava','suji','upma rava','semolina'],G,false,null,null,null,360,13.0,72.8,1.0,3.4,0,47,0,17,0.05,0.5),
+  mkF('Poha (flattened rice)',['beaten rice','avalakki','poha raw'],G,false,null,null,null,350,6.4,77.0,0.5,1.0,0,14,0,10,0.01,0.06),
+  mkF('Bajra / Pearl Millet (raw)',['pearl millet','bajra grain','bajra raw'],G,true,2.5,null,null,378,11.0,72.8,4.2,11.5,0,114,0,42,0.11,2.0),
+  mkF('Jowar / Sorghum (raw)',['sorghum grain','jowar grain'],G,true,2.5,null,null,329,10.4,67.6,3.3,6.7,0,165,0,28,0.1,1.5),
+  mkF('Ragi / Finger Millet (raw)',['finger millet','nachni','ragi grain'],G,true,2.5,null,null,336,7.7,72.0,1.9,15.1,0,137,0,344,0.05,0.8),
+  mkF('Quinoa (raw)',['quinoa uncooked'],G,true,2.0,null,null,368,14.1,64.2,6.1,7.0,0,197,0,47,0.26,2.98),
+  mkF('Barley (raw)',['jau','jav','barley grain'],G,true,2.5,null,null,354,12.5,73.5,2.3,17.3,0,133,0,33,0.11,1.0),
+  mkF('Corn / Maize (raw)',['makka','sweet corn raw','corn kernels'],G,true,2.0,null,null,365,9.4,74.3,4.7,7.3,0,127,0,7,0.06,2.15),
+  mkF('Dalia / Broken Wheat',['daliya','cracked wheat','lapsi'],G,false,null,null,null,340,11.0,69.0,1.5,8.5,0,118,0,26,0.06,0.7),
+  mkF('Sabudana / Tapioca',['sago','sabu dana'],G,false,null,null,null,336,0.2,83.0,0.2,0.9,0,2,0,6,0,0.01),
+  // ── PULSES RAW ──
+  mkF('Toor Dal (raw)',['arhar dal raw','pigeon pea raw'],G,true,2.5,null,null,335,22.3,57.6,1.7,15.0,0,183,0,73,0.1,0.5),
+  mkF('Moong Dal (raw)',['mung dal raw','green gram split raw'],G,true,2.5,null,null,347,24.0,59.9,1.2,16.3,0,189,0,132,0.06,0.4),
+  mkF('Chana Dal (raw)',['bengal gram split raw','gram dal raw'],G,true,2.5,null,null,372,20.4,61.5,5.3,17.4,0,115,0,202,0.07,1.1),
+  mkF('Masoor Dal (raw)',['red lentil raw','masoor raw'],G,true,2.5,null,null,353,25.8,60.1,1.1,10.9,0,122,0,56,0.06,0.3),
+  mkF('Urad Dal (raw)',['black gram raw','urad raw'],G,true,2.5,null,null,347,25.2,58.9,1.4,18.3,0,267,0,138,0.06,0.5),
+  mkF('Rajma (raw)',['kidney beans raw','red rajma raw'],G,true,2.5,null,null,333,22.9,59.4,1.3,24.9,0,163,0,143,0.04,0.3),
+  mkF('Chole / Chickpeas (raw)',['kabuli chana raw','garbanzo beans raw'],G,true,2.5,null,null,364,19.3,60.7,6.0,17.4,0,115,0,105,0.1,2.6),
+  mkF('Green Moong (whole raw)',['whole moong raw','sabut moong'],G,true,2.5,null,null,347,24.0,59.9,1.2,16.3,0,189,0,132,0.06,0.4),
+  mkF('Lobia / Cowpea (raw)',['black-eyed peas raw','chawli raw'],G,true,2.5,null,null,336,23.5,60.0,1.3,10.6,0,333,0,110,0.08,0.4),
+  mkF('Horse Gram (raw)',['kulthi raw'],G,true,2.5,null,null,321,22.0,57.2,0.5,5.3,0,287,0,287,0.0,0.2),
+  mkF('Soybean (raw)',['soya bean raw'],G,true,2.0,null,null,446,36.5,30.2,19.9,9.3,0,280,0,277,1.33,10.2),
+  // ── DALS COOKED ──
+  mkF('Dal (cooked)',['dal fry','mix dal','boiled dal','simple dal'],G,false,null,null,null,116,7.5,19.5,0.5,4.5,0,35,0,22,0.06,0.25),
+  mkF('Toor Dal (cooked)',['arhar dal cooked','yellow dal cooked'],G,false,null,null,null,119,7.3,20.7,0.6,4.1,0,30,0,24,0.06,0.3),
+  mkF('Moong Dal (cooked)',['mung dal cooked','yellow moong cooked'],G,false,null,null,null,105,7.0,18.8,0.4,0.8,0,48,0,27,0.03,0.2),
+  mkF('Masoor Dal (cooked)',['red lentil cooked'],G,false,null,null,null,116,9.0,20.1,0.4,7.9,0,36,0,19,0.04,0.2),
+  mkF('Dal Tadka',['tadka dal','restaurant dal','dhaba dal'],G,false,null,null,null,125,7.5,17.0,4.0,4.0,0,32,0,26,0.05,0.4),
+  mkF('Dal Makhani',['dal makhni','black dal','maa ki dal'],G,false,null,null,null,162,8.0,18.0,7.0,4.5,0.2,45,0.1,68,0.05,0.4),
+  mkF('Rajma (cooked)',['kidney beans cooked'],G,false,null,null,null,127,8.7,22.8,0.5,6.4,0,45,0,50,0.06,0.2),
+  mkF('Chana (cooked)',['chickpeas cooked','chole boiled'],G,false,null,null,null,164,8.9,27.4,2.6,7.6,0,48,0,49,0.07,1.1),
+  mkF('Moong Sprouts',['sprouted moong','moong sprouts'],G,false,null,null,null,105,8.0,19.0,0.6,1.8,0,52,0,44,0.04,0.3),
+  mkF('Chickpea Sprouts',['sprouted chana','kala chana sprouted'],G,false,null,null,null,187,9.0,32.5,3.0,7.6,0,48,0,49,0.07,1.1),
+  // ── INDIAN BREADS ──
+  mkF('Roti / Chapati',['chapati','phulka','fulka','wheat roti'],Q,false,null,SZ_ROTI,null,297,9.0,62.0,2.0,3.5,0,25,0,16,0.04,0.7),
+  mkF('Paratha (plain)',['plain paratha','tawa paratha'],Q,false,null,SZ_PARATHA,null,326,8.0,55.0,9.0,3.2,0,20,0,30,0.05,0.8),
+  mkF('Aloo Paratha',['potato paratha','stuffed paratha aloo'],Q,false,null,SZ_PARATHA,null,248,5.9,36.0,9.0,2.5,0,18,0,26,0.04,0.6),
+  mkF('Gobi Paratha',['cauliflower paratha'],Q,false,null,SZ_PARATHA,null,232,6.5,34.0,8.0,3.0,0,18,0,30,0.04,0.5),
+  mkF('Methi Paratha',['fenugreek paratha','thepla'],Q,false,null,SZ_PARATHA,null,265,8.0,38.0,8.5,4.0,0,62,0,55,0.06,0.6),
+  mkF('Puri',['poori'],Q,false,null,SZ_PURI,null,330,7.0,50.0,12.0,2.5,0,20,0,15,0.08,1.5),
+  mkF('Naan',['butter naan','plain naan','garlic naan'],Q,false,null,SZ_NAAN,null,302,10.0,56.0,5.0,2.1,0,23,0,45,0.04,0.5),
+  mkF('Bhatura',['bhatura fried'],Q,false,null,[{name:'Small',grams:60},{name:'Regular',grams:80},{name:'Large',grams:100}],null,330,8.0,48.0,12.0,2.0,0,18,0,20,0.05,0.9),
+  mkF('Tandoori Roti',['clay oven roti'],Q,false,null,SZ_ROTI,null,278,9.5,55.0,3.0,3.2,0,22,0,20,0.04,0.6),
+  mkF('Bajra Roti',['pearl millet roti'],Q,false,null,SZ_ROTI,null,254,7.2,46.5,4.5,4.0,0,90,0,35,0.08,1.2),
+  mkF('Jowar Roti',['sorghum roti'],Q,false,null,SZ_ROTI,null,231,7.5,47.5,3.0,4.5,0,120,0,22,0.07,1.0),
+  mkF('Ragi Roti',['finger millet roti','nachni roti'],Q,false,null,SZ_ROTI,null,240,7.0,48.0,3.0,5.0,0,138,0,344,0.05,0.8),
+  mkF('Missi Roti',['besan roti','chickpea roti'],Q,false,null,SZ_ROTI,null,278,11.5,47.0,5.0,5.0,0,45,0,52,0.06,0.8),
+  mkF('Kulcha',['kulcha bread'],Q,false,null,[{name:'Small',grams:60},{name:'Regular',grams:80}],null,290,9.0,54.0,4.5,2.0,0,22,0,40,0.04,0.5),
+  mkF('Bread Slice (white)',['white bread','sandwich bread','bread slice'],Q,false,null,SZ_BREAD,null,265,8.0,49.0,3.2,2.7,0,23,0,107,0.07,0.6),
+  mkF('Bread Slice (brown)',['brown bread','whole wheat bread slice'],Q,false,null,SZ_BREAD,null,247,9.0,46.0,3.4,6.0,0,76,0,107,0.1,0.8),
+  mkF('Pav / Dinner Roll',['ladi pav','pao bun'],Q,false,null,[{name:'1 pav',grams:50}],50,265,8.0,50.0,3.2,2.5,0,22,0,100,0.06,0.5),
+  // ── SOUTH INDIAN ──
+  mkF('Idli',['idly','steamed rice cake'],Q,false,null,SZ_IDLI,null,58,2.0,12.0,0.4,0.4,0,10,0,12,0.01,0.1),
+  mkF('Dosa (plain)',['rice dosa','plain dosa'],Q,false,null,SZ_DOSA,null,168,3.9,23.9,5.5,0.8,0,12,0,15,0.05,0.4),
+  mkF('Masala Dosa',['masala dose','potato dosa'],Q,false,null,[{name:'Regular',grams:150},{name:'Large',grams:200}],null,155,3.8,22.0,5.5,1.2,0,14,0,18,0.04,0.4),
+  mkF('Rava Dosa',['semolina dosa','rava dose'],Q,false,null,SZ_DOSA,null,157,4.5,22.5,4.5,0.8,0,10,0,15,0.04,0.35),
+  mkF('Set Dosa',['set dose','soft small dosa'],Q,false,null,[{name:'1 piece',grams:60}],60,152,3.5,22.0,4.0,0.8,0,10,0,14,0.03,0.3),
+  mkF('Uttapam',['uthappam','tomato uttapam'],Q,false,null,SZ_UTTAPAM,null,136,3.5,20.0,4.0,0.9,0,12,0,18,0.04,0.3),
+  mkF('Upma',['semolina upma','rava upma'],G,false,null,null,null,163,4.0,22.0,6.2,1.5,0,30,0,12,0.06,0.5),
+  mkF('Pongal (savoury)',['ven pongal','rice pongal'],G,false,null,null,null,155,4.5,23.0,4.5,1.2,0,20,0,15,0.04,0.3),
+  mkF('Medu Vada',['urad vadai','uzhunnu vada'],Q,false,null,SZ_VADA,null,348,17.0,50.0,8.5,4.5,0,90,0,70,0.06,0.5),
+  mkF('Sambar',['vegetable sambar','dal sambar'],G,false,null,null,null,55,2.9,8.0,1.5,2.5,0,22,0,35,0.05,0.2),
+  mkF('Coconut Chutney',['nariyal chutney','white chutney'],G,false,null,null,null,229,3.5,10.0,19.0,5.5,0,46,0,12,0.02,0.3),
+  mkF('Pesarattu',['moong dosa','green moong dosa'],Q,false,null,SZ_DOSA,null,157,9.5,22.5,3.5,4.0,0,52,0,45,0.04,0.4),
+  mkF('Appam',['palappam','rice appam'],Q,false,null,[{name:'Small',grams:40},{name:'Regular',grams:60}],null,152,2.5,28.0,3.0,0.5,0,10,0,12,0.02,0.3),
+  mkF('Idiyappam',['string hoppers','rice noodles'],G,false,null,null,null,201,3.5,44.0,1.0,0.5,0,6,0,8,0.01,0.05),
+  mkF('Avial',['kerala avial','vegetables in coconut'],G,false,null,null,null,95,2.5,8.0,6.5,3.0,0,22,0,35,0.04,0.5),
+  mkF('Puttu',['rice puttu','cylindrical rice cake'],G,false,null,null,null,176,3.5,38.0,1.0,1.5,0,8,0,10,0.01,0.05),
+  mkF('Poha (cooked)',['beaten rice upma','kanda poha'],G,false,null,null,null,130,2.0,28.0,1.0,1.0,0,14,0,8,0.01,0.06),
+  mkF('Sabudana Khichdi',['sabudana khichdi'],G,false,null,null,null,258,4.0,38.0,10.0,1.5,0,28,0,30,0.01,0.3),
+  // ── NORTH INDIAN CURRIES ──
+  mkF('Dal Fry',['dal fry tadka'],G,false,null,null,null,119,7.0,16.0,3.8,4.0,0,30,0,24,0.04,0.3),
+  mkF('Palak Paneer',['spinach paneer curry'],G,false,null,null,null,122,6.5,5.0,9.0,2.0,0.4,35,0.3,172,0.1,0.5),
+  mkF('Paneer Butter Masala',['paneer makhani','butter paneer'],G,false,null,null,null,186,8.0,9.0,14.0,2.0,0.3,20,0.2,230,0.08,0.4),
+  mkF('Shahi Paneer',['rich paneer curry'],G,false,null,null,null,192,8.5,8.0,15.0,1.5,0.3,18,0.2,230,0.07,0.4),
+  mkF('Mutter Paneer',['peas paneer curry','matar paneer'],G,false,null,null,null,157,7.5,10.0,10.0,3.0,0.2,25,0.1,155,0.06,0.35),
+  mkF('Paneer Tikka',['grilled paneer','tandoori paneer'],G,false,null,null,null,276,17.0,6.0,21.0,1.0,0.5,16,0.3,470,0.1,0.6),
+  mkF('Kadhi',['punjabi kadhi','kadhi with pakora'],G,false,null,null,null,78,2.5,7.5,4.2,1.5,0.2,15,0.05,85,0.02,0.15),
+  mkF('Aloo Gobi',['potato cauliflower sabzi'],G,false,null,null,null,92,2.5,13.0,3.5,3.0,0,22,0,40,0.03,0.2),
+  mkF('Aloo Sabzi',['potato curry','aloo bhaji','aloo ki sabzi'],G,false,null,null,null,95,2.0,15.0,3.5,2.0,0,18,0,15,0.03,0.2),
+  mkF('Bhindi Sabzi',['okra fry','lady finger sabzi'],G,false,null,null,null,72,2.0,7.0,4.0,3.2,0,56,0,82,0.02,0.5),
+  mkF('Baingan Bharta',['brinjal mash','eggplant bharta','smoky brinjal'],G,false,null,null,null,68,1.5,6.5,4.0,2.5,0,12,0,15,0.03,0.3),
+  mkF('Sarson ka Saag',['mustard greens saag','makke da saag'],G,false,null,null,null,82,4.5,8.0,3.5,5.0,0,77,0,180,0.12,0.4),
+  mkF('Rajma Masala',['rajma curry','kidney beans curry'],G,false,null,null,null,130,7.5,20.0,3.0,5.5,0,45,0,52,0.06,0.3),
+  mkF('Chole Masala',['chickpea curry','chole gravy'],G,false,null,null,null,145,6.5,19.0,5.5,6.0,0,48,0,50,0.07,0.8),
+  mkF('Aloo Mutter',['potato peas curry','matar aloo'],G,false,null,null,null,98,3.0,14.5,3.5,3.5,0,22,0,28,0.03,0.3),
+  mkF('Chicken Curry',['murgh curry','indian chicken curry'],G,false,null,null,null,145,14.0,5.0,8.0,1.0,0.2,22,0.1,25,0.05,0.6),
+  mkF('Mutton Curry',['lamb curry','goat curry'],G,false,null,null,null,178,16.0,5.0,11.0,1.0,1.0,22,0.1,20,0.1,0.5),
+  mkF('Egg Curry',['anda curry','egg masala'],G,false,null,null,null,142,10.0,5.0,9.5,0.5,0.5,12,0.5,58,0.05,0.9),
+  // ── RICE DISHES ──
+  mkF('Chicken Biryani',['biryani chicken','murgh biryani'],G,false,null,null,null,190,14.0,22.0,5.5,0.5,0.2,22,0.1,22,0.05,0.5),
+  mkF('Veg Biryani',['vegetable biryani'],G,false,null,null,null,162,4.5,28.0,4.0,1.5,0,18,0,22,0.04,0.35),
+  mkF('Mutton Biryani',['lamb biryani','gosht biryani'],G,false,null,null,null,222,15.0,25.0,7.0,0.5,0.8,22,0.1,22,0.06,0.5),
+  mkF('Jeera Rice',['cumin rice','zeera rice'],G,false,null,null,null,155,3.2,30.0,3.5,0.5,0,14,0,14,0.02,0.1),
+  mkF('Veg Pulao',['vegetable pulao'],G,false,null,null,null,158,4.0,27.0,4.0,1.0,0,16,0,18,0.03,0.2),
+  mkF('Khichdi',['moong rice khichdi','dal khichdi'],G,false,null,null,null,115,4.5,20.0,2.5,2.0,0,15,0,18,0.05,0.2),
+  mkF('Curd Rice',['thayir sadam','yogurt rice'],G,false,null,null,null,130,3.5,22.0,3.5,0.5,0.2,13,0.1,90,0.01,0.06),
+  mkF('Lemon Rice',['chitranna','citrus rice'],G,false,null,null,null,162,3.0,30.0,4.0,0.5,0,13,0,10,0.01,0.1),
+  mkF('Coconut Rice',['nariyal rice'],G,false,null,null,null,175,3.2,28.0,6.0,1.5,0,18,0,8,0.03,0.5),
+  mkF('Pav Bhaji',['pav bhaji dish','bhaji with pav'],G,false,null,null,null,142,4.5,21.0,5.0,3.5,0,32,0,35,0.04,0.5),
+  mkF('Misal Pav',['misal'],G,false,null,null,null,156,6.0,22.0,5.0,5.5,0,35,0,42,0.05,0.4),
+  mkF('Rajma Chawal',['rajma rice combo','rajma rice'],G,false,null,null,null,132,5.5,22.5,2.8,3.5,0,30,0,32,0.04,0.3),
+  // ── STREET FOOD ──
+  mkF('Samosa',['potato samosa','veg samosa'],Q,false,null,SZ_SAMOSA,null,308,5.0,35.0,16.0,2.5,0,22,0,20,0.04,1.5),
+  mkF('Vada Pav',['vada pao','batata vada pav'],Q,false,null,[{name:'Regular',grams:120},{name:'Large',grams:150}],null,275,6.5,38.0,11.0,2.0,0,18,0,28,0.04,1.2),
+  mkF('Bhel Puri',['bhelpuri'],G,false,null,null,null,168,4.0,30.0,5.0,2.0,0,22,0,20,0.04,0.6),
+  mkF('Sev Puri',['sevpuri'],G,false,null,null,null,285,5.0,34.0,14.0,1.5,0,20,0,22,0.03,0.8),
+  mkF('Pani Puri',['golgappa','gol gappe','puchka'],Q,false,null,[{name:'1 piece',grams:15}],15,305,5.5,50.0,9.0,2.5,0,18,0,22,0.04,0.6),
+  mkF('Dahi Puri',['dahi papri chaat'],G,false,null,null,null,188,5.5,27.0,7.0,1.5,0.1,18,0.05,80,0.03,0.4),
+  mkF('Kachori',['raj kachori','fried kachori'],Q,false,null,[{name:'Small',grams:60},{name:'Regular',grams:80}],null,348,7.0,43.0,16.0,3.0,0,22,0,20,0.04,1.5),
+  mkF('Aloo Tikki',['potato patty'],Q,false,null,[{name:'Small',grams:50},{name:'Regular',grams:70}],null,210,3.5,28.5,9.0,2.0,0,18,0,12,0.03,0.8),
+  mkF('Pakora (onion)',['bhajia','pyaaz pakora','onion bhajji'],Q,false,null,[{name:'Small',grams:20},{name:'Regular',grams:35}],null,252,6.5,27.0,13.0,3.0,0,28,0,30,0.03,0.9),
+  mkF('Bread Pakora',['bread bhajia'],Q,false,null,[{name:'Regular',grams:80},{name:'Large',grams:100}],null,285,7.5,37.0,12.0,2.0,0,20,0,60,0.04,0.8),
+  mkF('Momo (veg)',['veg momos','steamed dumpling veg'],Q,false,null,[{name:'1 piece',grams:20},{name:'6 piece',grams:120}],20,155,5.0,24.0,4.0,2.0,0,10,0,20,0.02,0.3),
+  mkF('Momo (chicken)',['chicken momo','chicken dumpling'],Q,false,null,[{name:'1 piece',grams:20},{name:'6 piece',grams:120}],20,175,10.0,18.0,6.0,1.5,0.1,12,0.05,18,0.03,0.4),
+  mkF('Dhokla',['besan dhokla','khaman dhokla'],Q,false,null,[{name:'1 piece',grams:30}],30,158,9.5,28.0,1.5,1.8,0,22,0,35,0.03,0.5),
+  mkF('Dabeli',['kutchi dabeli'],Q,false,null,[{name:'Regular',grams:100}],100,218,4.5,32.0,8.5,2.0,0,18,0,30,0.03,0.6),
+  mkF('Besan Cheela',['gram flour cheela','besan pancake'],Q,false,null,[{name:'Small',grams:60},{name:'Regular',grams:90}],80,183,9.0,22.0,6.5,4.0,0,40,0,35,0.04,0.8),
+  // ── INDIAN SWEETS ──
+  mkF('Gulab Jamun',['gulab jaman'],Q,false,null,[{name:'Small',grams:30},{name:'Regular',grams:40}],40,383,6.0,57.0,14.0,0.3,0.1,10,0.05,80,0.02,0.2),
+  mkF('Rasgulla',['rosogolla'],Q,false,null,[{name:'Regular',grams:40}],40,188,5.0,37.5,2.0,0.2,0.2,8,0.05,110,0.01,0.1),
+  mkF('Jalebi',['imarti jalebi'],Q,false,null,[{name:'Small',grams:25},{name:'Regular',grams:40}],35,360,2.5,76.0,6.0,0.2,0,5,0,8,0.01,0.1),
+  mkF('Besan Ladoo',['gram flour ladoo'],Q,false,null,[{name:'1 ladoo',grams:35}],35,415,9.0,55.0,18.0,3.0,0,42,0,30,0.05,1.5),
+  mkF('Motichoor Ladoo',['boondi ladoo','motichur'],Q,false,null,[{name:'1 ladoo',grams:35}],35,398,7.0,60.0,14.0,2.0,0,25,0,35,0.04,1.0),
+  mkF('Sooji Halwa',['sheera','suji ka halwa'],G,false,null,null,null,278,4.0,37.0,13.0,0.5,0,15,0,30,0.04,0.5),
+  mkF('Kheer',['rice pudding','payasam'],G,false,null,null,null,148,4.0,23.0,4.5,0.5,0.4,14,0.2,140,0.02,0.1),
+  mkF('Kaju Barfi',['cashew katli','kaju katli'],Q,false,null,[{name:'1 piece',grams:20}],20,496,11.0,58.0,25.0,1.0,0,120,0,32,0.04,2.5),
+  mkF('Rasmalai',['ras malai'],Q,false,null,[{name:'1 piece',grams:40}],40,198,7.5,22.0,9.0,0,0.5,12,0.1,165,0.02,0.15),
+  mkF('Modak',['ukadiche modak'],Q,false,null,[{name:'Regular',grams:50}],50,210,3.5,32.0,8.0,3.0,0,22,0,12,0.05,0.8),
+  mkF('Mysore Pak',['mysore pak sweet'],Q,false,null,[{name:'1 piece',grams:30}],30,520,7.0,52.0,33.0,1.0,0,35,0,20,0.04,1.2),
+  mkF('Milk Barfi',['milk cake'],Q,false,null,[{name:'1 piece',grams:30}],30,380,8.0,55.0,14.0,0,0.3,12,0.1,240,0.02,0.15),
+  mkF('Gujiya',['karanji'],Q,false,null,[{name:'1 piece',grams:60}],60,360,6.5,46.0,18.0,1.5,0,18,0,25,0.04,1.2),
+  mkF('Halwa (Gajar)',['carrot halwa','gajar ka halwa'],G,false,null,null,null,225,4.0,30.0,9.5,2.5,0.2,20,0.1,115,0.04,0.2),
+  // ── DAIRY ──
+  mkF('Milk (full fat)',['whole milk','cow milk','buffalo milk','full cream milk'],G,false,null,null,null,61,3.2,4.8,3.3,0,1.0,10,1.2,113,0.05,0.07),
+  mkF('Milk (toned)',['low fat milk','toned milk','amul toned'],G,false,null,null,null,42,3.4,5.0,1.5,0,1.0,11,1.3,120,0.03,0.05),
+  mkF('Milk (skim)',['skimmed milk','fat free milk'],G,false,null,null,null,34,3.4,5.1,0.1,0,1.0,11,1.3,125,0.01,0.01),
+  mkF('Curd / Yogurt',['dahi','plain yogurt','fresh curd'],G,false,null,null,null,61,3.5,4.7,3.3,0,0.9,11,0.1,121,0.05,0.07),
+  mkF('Greek Yogurt',['greek dahi','thick yogurt','hung curd'],G,false,null,null,null,97,9.0,3.6,5.0,0,0.7,11,0.1,110,0.05,0.06),
+  mkF('Greek Yogurt (0% fat)',['non fat greek yogurt','fat free yogurt'],G,false,null,null,null,59,10.0,3.6,0.4,0,0.4,11,0.1,110,0.01,0.02),
+  mkF('Paneer',['cottage cheese indian','fresh paneer'],G,false,null,null,null,265,18.0,3.4,20.0,0,0.8,8,0.5,480,0.2,0.5),
+  mkF('Paneer (low fat)',['skimmed milk paneer'],G,false,null,null,null,150,17.0,5.0,7.0,0,0.5,10,0.2,350,0.1,0.3),
+  mkF('Cheese (slice)',['amul cheese','processed cheese slice'],G,false,null,null,null,350,22.0,1.3,28.0,0,1.2,8,0.2,700,0.2,0.6),
+  mkF('Butter',['makhan','salted butter','unsalted butter'],G,false,null,null,null,717,0.9,0.1,81.0,0,0.2,2,1.5,24,0.32,2.7),
+  mkF('Ghee',['clarified butter','desi ghee'],G,false,null,null,null,900,0,0.1,99.7,0,0,0,0.4,4,0.5,3.0),
+  mkF('Cream (fresh)',['heavy cream','whipping cream'],G,false,null,null,null,336,2.0,2.9,35.0,0,0.1,2,0.2,69,0.2,0.4),
+  mkF('Khoya / Mawa',['evaporated milk solid'],G,false,null,null,null,421,20.0,25.0,25.0,0,0.5,30,0.5,650,0.2,0.3),
+  mkF('Condensed Milk',['sweetened condensed milk','milkmaid'],G,false,null,null,null,321,8.0,54.0,8.7,0,0.3,10,0.1,284,0.1,0.2),
+  mkF('Buttermilk / Chaach',['chaach','chhachh','thin lassi'],G,false,null,null,null,40,3.3,4.8,0.9,0,0.5,11,0.05,116,0.01,0.02),
+  mkF('Lassi (sweet)',['sweet lassi','mango lassi'],G,false,null,null,null,90,3.0,14.0,2.5,0,0.5,10,0.05,105,0.03,0.05),
+  // ── EGGS ──
+  mkF('Egg (whole)',['anda','hen egg','raw egg'],Q,false,null,SZ_EGG,null,155,12.6,1.1,10.6,0,1.1,12,2.0,56,0.05,1.5),
+  mkF('Egg (boiled)',['hard boiled egg','soft boiled egg','anda boiled'],Q,false,null,SZ_EGG,null,155,12.6,1.1,10.6,0,1.1,12,2.0,56,0.05,1.5),
+  mkF('Egg (fried)',['sunny side up','fried anda'],Q,false,null,SZ_EGG,null,196,14.0,0.8,15.5,0,1.0,12,1.8,64,0.05,1.4),
+  mkF('Omelette',['egg omelette','plain omelette'],Q,false,null,[{name:'1 egg',grams:60},{name:'2 egg',grams:110},{name:'3 egg',grams:160}],null,196,12.0,1.0,15.5,0,1.0,12,1.8,64,0.05,1.4),
+  mkF('Egg White',['albumen','egg white only'],G,false,null,null,null,52,11.0,0.7,0.2,0,0,11,0,7,0,0.01),
+  mkF('Egg Yolk',['yolk only'],G,false,null,null,null,322,15.9,3.6,26.5,0,1.95,5.5,2.5,129,0.1,3.5),
+  mkF('Scrambled Eggs',['scrambled anda'],G,false,null,null,null,168,11.0,2.2,13.0,0,0.8,13,1.5,72,0.04,1.2),
+  mkF('Egg Bhurji',['anda bhurji','egg scramble masala'],G,false,null,null,null,175,11.5,4.5,12.0,0.5,0.8,14,1.2,68,0.04,1.2),
+  // ── MEAT & FISH ──
+  mkF('Chicken Breast (raw)',['chicken chest','white chicken meat'],G,false,null,null,null,165,31.0,0,3.6,0,0.3,29,0.1,15,0.05,0.6),
+  mkF('Chicken Breast (grilled)',['grilled chicken','baked chicken'],G,false,null,null,null,165,31.0,0,3.6,0,0.3,29,0.1,15,0.05,0.6),
+  mkF('Chicken Leg (raw)',['drumstick chicken raw','dark meat chicken'],G,false,null,null,null,172,18.0,0,10.5,0,0.2,22,0.1,12,0.08,0.8),
+  mkF('Chicken Tikka',['tandoori chicken pieces'],G,false,null,null,null,180,25.0,5.0,7.0,0.5,0.3,25,0.2,18,0.06,0.5),
+  mkF('Mutton (raw)',['goat meat','lamb raw'],G,false,null,null,null,294,17.0,0,25.0,0,0.8,18,0.4,13,0.1,0.5),
+  mkF('Fish (Rohu)',['rohu fish freshwater'],G,false,null,null,null,97,16.6,0,3.4,0,3.5,22,4.5,650,0.6,0.2),
+  mkF('Fish (Surmai)',['king mackerel','surmai fish'],G,false,null,null,null,134,20.0,0,5.5,0,8.5,28,6.0,28,1.2,0.5),
+  mkF('Fish (Pomfret)',['pomfret fish','silver pomfret'],G,false,null,null,null,124,20.0,0,4.5,0,3.5,25,4.0,25,0.8,0.3),
+  mkF('Prawns / Shrimp',['jhinga','scampi'],G,false,null,null,null,85,20.0,0.9,0.5,0,1.5,22,0.2,70,0.2,0.04),
+  mkF('Salmon (fillet)',['atlantic salmon','salmon fish'],G,false,null,null,null,208,20.4,0,13.4,0,3.2,29,14.4,12,2.42,0.98),
+  mkF('Tuna (canned)',['canned tuna','chunk tuna'],G,false,null,null,null,108,25.5,0,0.5,0,2.5,64,4.5,11,0.29,0.02),
+  // ── VEGETABLES (RAW - cooking state smart) ──
+  mkF('Potato (raw)',['aloo raw','sweet potato raw confused'],G,true,null,null,null,77,2.0,17.5,0.1,2.2,0,23,0,12,0.01,0.02),
+  mkF('Sweet Potato (raw)',['shakarkand','yam orange'],G,true,null,null,null,86,1.6,20.1,0.1,3.0,0,25,0,30,0.01,0.02),
+  mkF('Tomato',['tamatar','tomatoes'],G,false,null,null,null,18,0.9,3.9,0.2,1.2,0,11,0,10,0.01,0.08),
+  mkF('Onion',['pyaaz','kanda'],G,false,null,null,null,40,1.1,9.3,0.1,1.7,0,10,0,23,0.01,0.04),
+  mkF('Spinach (raw)',['palak leaves raw'],G,true,4.0,null,null,23,2.9,3.6,0.4,2.2,0,79,0,99,0.14,0.03),
+  mkF('Fenugreek Leaves (raw)',['methi leaves raw','methi raw'],G,true,3.0,null,null,49,4.4,6.0,0.9,7.3,0,130,0,176,0.1,0.08),
+  mkF('Carrot (raw)',['gajar raw'],G,false,null,null,null,41,0.9,9.6,0.2,2.8,0,12,0,33,0.01,0.12),
+  mkF('Cabbage (raw)',['patta gobhi raw'],G,true,3.0,null,null,25,1.3,5.8,0.1,2.5,0,12,0,40,0.02,0.03),
+  mkF('Cauliflower (raw)',['phool gobhi raw'],G,true,3.0,null,null,25,1.9,5.0,0.3,2.0,0,15,0,22,0.02,0.04),
+  mkF('Broccoli (raw)',['hari phool gobhi'],G,true,3.0,null,null,34,2.8,6.6,0.4,2.6,0,21,0,47,0.10,0.04),
+  mkF('Peas (raw)',['matar raw','green peas raw'],G,true,2.5,null,null,81,5.4,14.5,0.4,5.1,0,33,0,25,0.08,0.18),
+  mkF('Bhindi / Okra (raw)',['ladies finger','okra raw'],G,false,null,null,null,33,2.0,7.0,0.2,3.2,0,56,0,82,0.02,0.05),
+  mkF('Brinjal / Eggplant (raw)',['baingan raw','aubergine'],G,false,null,null,null,25,1.0,5.9,0.2,3.0,0,14,0,9,0.02,0.08),
+  mkF('Cucumber',['kheera','salad cucumber'],G,false,null,null,null,15,0.7,3.6,0.1,0.5,0,13,0,16,0.01,0.04),
+  mkF('Bottle Gourd (raw)',['lauki raw','ghia raw'],G,true,3.0,null,null,14,0.6,3.4,0.02,0.5,0,10,0,26,0.01,0.04),
+  mkF('Bitter Gourd (raw)',['karela raw'],G,false,null,null,null,17,1.0,3.7,0.2,2.8,0,17,0,19,0.01,0.05),
+  mkF('Beetroot',['chukandar','beet root'],G,false,null,null,null,43,1.6,9.6,0.2,2.8,0,23,0,16,0.01,0.04),
+  mkF('Capsicum / Bell Pepper',['shimla mirch','bell pepper'],G,false,null,null,null,31,1.0,6.0,0.3,2.1,0,12,0,7,0.02,0.08),
+  mkF('Mushroom',['dhingri','white mushroom','brown mushroom'],G,false,null,null,null,22,3.1,3.3,0.3,1.0,0,9,0.2,3,0.01,0.1),
+  mkF('Pumpkin (raw)',['kaddu raw','lal kaddu'],G,false,null,null,null,26,1.0,6.5,0.1,0.5,0,12,0,21,0.01,0.04),
+  mkF('Green Beans (raw)',['french beans','sem raw'],G,true,3.0,null,null,31,1.8,7.0,0.1,3.4,0,25,0,37,0.04,0.06),
+  mkF('Radish (raw)',['mooli raw'],G,false,null,null,null,16,0.7,3.4,0.1,1.6,0,10,0,25,0.01,0.03),
+  // ── FRUITS ──
+  mkF('Banana',['kela','plantain ripe'],Q,false,null,null,120,89,1.1,22.8,0.3,2.6,0,27,0,5,0.03,0.05),
+  mkF('Apple',['seb','red apple','green apple'],Q,false,null,null,150,52,0.3,13.8,0.2,2.4,0,5,0,6,0.01,0.05),
+  mkF('Mango',['aam','alphonso','totapuri mango'],Q,false,null,null,200,60,0.8,15.0,0.4,1.6,0,10,0,11,0.04,0.02),
+  mkF('Orange',['santra','orange fruit'],Q,false,null,null,130,47,0.9,11.8,0.1,2.4,0,10,0,40,0.01,0.03),
+  mkF('Sweet Lime / Mosambi',['mosambi','musambi'],Q,false,null,null,130,43,0.8,10.0,0.3,1.0,0,10,0,40,0.01,0.02),
+  mkF('Grapes',['angoor','green grapes','black grapes'],G,false,null,null,null,69,0.7,18.0,0.2,0.9,0,7,0,10,0.01,0.07),
+  mkF('Watermelon',['tarbooz','tarbuj'],G,false,null,null,null,30,0.6,7.6,0.2,0.4,0,10,0,7,0.01,0.06),
+  mkF('Papaya',['papita'],G,false,null,null,null,43,0.5,10.8,0.3,1.7,0,21,0,20,0.01,0.03),
+  mkF('Pineapple',['ananas'],G,false,null,null,null,50,0.5,13.1,0.1,1.4,0,12,0,13,0.02,0.02),
+  mkF('Guava',['amrood','peru'],Q,false,null,null,100,68,2.6,14.3,1.0,5.4,0,22,0,18,0.03,0.09),
+  mkF('Pomegranate',['anar','pomegranate seeds'],G,false,null,null,null,83,1.7,18.7,1.2,4.0,0,12,0,10,0.05,0.08),
+  mkF('Strawberry',['strawberries'],G,false,null,null,null,32,0.7,7.7,0.3,2.0,0,13,0,16,0.06,0.09),
+  mkF('Kiwi',['kiwi fruit'],Q,false,null,null,80,61,1.1,14.7,0.5,3.0,0,17,0,34,0.04,0.18),
+  mkF('Chiku / Sapota',['sapodilla','sapota chiku'],Q,false,null,null,100,83,0.4,19.9,1.1,5.3,0,12,0,21,0.01,0.03),
+  mkF('Coconut (fresh)',['narial flesh','fresh coconut meat'],G,false,null,null,null,354,3.3,15.2,33.5,9.0,0,32,0,14,0.02,0.3),
+  mkF('Dates (dried)',['khajoor','medjool dates','khajur'],Q,false,null,null,8,282,2.5,75.0,0.4,8.0,0,54,0,64,0.02,0.02),
+  mkF('Raisins / Kishmish',['kishmish','sultanas','golden raisins'],G,false,null,null,null,299,3.1,79.2,0.5,3.7,0,32,0,50,0.05,0.06),
+  mkF('Amla / Indian Gooseberry',['amla berry','aonla'],Q,false,null,null,8,44,0.7,10.2,0.6,4.3,0,10,0,25,0.01,0.04),
+  mkF('Coconut Water',['nariyal pani','tender coconut water'],G,false,null,null,null,19,0.7,3.7,0.2,1.1,0,25,0,24,0.01,0.02),
+  // ── NUTS & SEEDS ──
+  mkF('Almonds',['badam'],G,false,null,null,null,579,21.2,21.6,49.9,12.5,0,270,0,264,0.003,12.3),
+  mkF('Walnuts',['akhrot','walnuts halves'],G,false,null,null,null,654,15.2,13.7,65.2,6.7,0,158,0,98,9.08,38.1),
+  mkF('Cashews',['kaju','cashew nuts'],G,false,null,null,null,553,18.2,30.2,43.8,3.3,0,292,0,37,0.15,7.77),
+  mkF('Peanuts (roasted)',['groundnuts roasted','mungfali roasted'],G,false,null,null,null,587,25.0,21.5,49.7,8.5,0,176,0,54,0.003,15.5),
+  mkF('Peanuts (raw)',['groundnuts raw','mungfali raw'],G,false,null,null,null,567,25.8,16.1,49.2,8.5,0,168,0,92,0.003,15.6),
+  mkF('Pistachios',['pista'],G,false,null,null,null,562,20.2,27.5,45.3,10.3,0,121,0,107,0.29,13.7),
+  mkF('Hazelnuts',['hazelnut'],G,false,null,null,null,628,15.0,16.7,60.8,9.7,0,163,0,114,0.09,7.83),
+  mkF('Macadamia Nuts',['macadamia','mac nuts'],G,false,null,null,null,718,7.9,13.8,75.8,8.6,0,130,0,85,0.21,1.3),
+  mkF('Peanut Butter',['groundnut butter','pb'],G,false,null,null,null,598,25.1,20.0,51.4,6.0,0,154,0,49,0.003,14.5),
+  mkF('Makhana / Fox Nuts',['lotus seeds','phool makhana'],G,false,null,null,null,347,9.7,76.9,0.1,14.5,0,67,0,60,0.02,0.1),
+  mkF('Flaxseeds',['alsi seeds','linseed','flaxseed'],G,false,null,null,null,534,18.3,28.9,42.2,27.3,0,392,0,255,22.8,5.9),
+  mkF('Chia Seeds',['chia','sabja similar'],G,false,null,null,null,486,16.5,42.1,30.7,34.4,0,335,0,631,17.8,5.8),
+  mkF('Pumpkin Seeds',['pepitas','kaddu beej'],G,false,null,null,null,559,30.2,10.7,49.1,6.0,0,592,0,46,0.09,20.7),
+  mkF('Sunflower Seeds',['surajmukhi seeds'],G,false,null,null,null,584,20.8,20.0,51.5,8.6,0,325,1.8,78,0.06,37.4),
+  mkF('Sesame Seeds',['til seeds'],G,false,null,null,null,573,17.7,23.5,49.7,11.8,0,351,0,975,0.38,21.4),
+  mkF('Hemp Seeds',['hemp protein seeds'],G,false,null,null,null,553,31.6,8.7,48.8,4.0,0,700,0,70,8.71,27.4),
+  // ── OILS ──
+  mkF('Mustard Oil',['sarson ka tel'],G,false,null,null,null,884,0,0,100,0,0,0,0,0,5.9,21.0),
+  mkF('Coconut Oil',['nariyal tel'],G,false,null,null,null,892,0,0,100,0,0,0,0,0,0,1.8),
+  mkF('Sunflower Oil',['surajmukhi tel'],G,false,null,null,null,884,0,0,100,0,0,0,0,0,0.06,65.7),
+  mkF('Groundnut Oil',['peanut oil','mungfali tel'],G,false,null,null,null,884,0,0,100,0,0,0,0,0,0,32.0),
+  mkF('Olive Oil',['jaitun tel','extra virgin olive oil','evoo'],G,false,null,null,null,884,0,0,100,0,0,0,0,0,0.76,9.73),
+  mkF('Rice Bran Oil',['rice bran'],G,false,null,null,null,884,0,0,100,0,0,0,0,0,1.6,35.0),
+  mkF('Soybean Oil',['soy oil'],G,false,null,null,null,884,0,0,100,0,0,0,0,0,6.79,50.4),
+  // ── PACKAGED SNACKS ──
+  mkF('Parle-G Biscuit',['parleg','parle g'],Q,false,null,[{name:'1 biscuit',grams:5},{name:'1 packet',grams:100}],5,450,7.0,76.0,11.0,0.6,0,12,0,15,0.05,0.6),
+  mkF('Marie Gold Biscuit',['marie biscuit','britannia marie'],Q,false,null,[{name:'1 biscuit',grams:7},{name:'1 packet',grams:100}],7,428,7.0,73.0,12.0,1.5,0,14,0,18,0.05,0.5),
+  mkF('Oreo Cookie',['oreos biscuit'],Q,false,null,[{name:'1 cookie',grams:11},{name:'3 cookies',grams:33}],11,480,5.0,71.0,21.0,1.5,0,18,0,13,0.04,1.8),
+  mkF('Good Day Biscuit',['britannia good day butter'],Q,false,null,[{name:'1 biscuit',grams:8},{name:'1 packet',grams:100}],8,505,8.0,61.0,25.0,1.5,0,15,0,22,0.08,2.5),
+  mkF('Digestive Biscuit',['digestive mcvities'],Q,false,null,[{name:'1 biscuit',grams:14},{name:'1 packet',grams:140}],14,471,7.5,67.0,22.0,4.0,0,32,0,38,0.1,2.0),
+  mkF('Kurkure (Masala Munch)',['kurkure masala','kurkure snack'],G,false,null,null,null,530,8.0,55.0,30.0,3.0,0,20,0,10,0.03,3.5),
+  mkF('Lays Classic / Magic Masala',['lays chips','potato chips lays'],G,false,null,null,null,536,7.0,52.0,34.0,4.7,0,25,0,18,0.1,3.2),
+  mkF('Bingo Mad Angles',['bingo chips'],G,false,null,null,null,505,8.0,59.0,26.0,2.5,0,18,0,12,0.04,2.8),
+  mkF('Pringles',['pringles original'],G,false,null,null,null,529,6.0,53.0,33.0,2.5,0,13,0,18,0.08,2.0),
+  mkF('Haldiram Aloo Bhujia',['aloo bhujia haldiram'],G,false,null,null,null,540,14.0,52.0,30.0,4.5,0,40,0,30,0.05,5.0),
+  mkF('Haldiram Moong Dal',['moong dal namkeen'],G,false,null,null,null,547,20.5,53.0,27.0,7.0,0,55,0,42,0.05,4.5),
+  mkF('Makhana (roasted)',['fox nuts roasted'],G,false,null,null,null,370,11.0,78.0,1.5,14.0,0,70,0,62,0.02,0.12),
+  mkF('Popcorn (plain)',['air popped popcorn'],G,false,null,null,null,375,12.0,74.0,4.3,14.5,0,144,0,7,0.09,1.8),
+  mkF('Murukku / Chakli',['south indian snack murukku'],G,false,null,null,null,504,8.5,54.0,28.0,3.0,0,35,0,30,0.04,3.5),
+  // ── HEALTH BRANDS ──
+  mkF('Yoga Bar Protein Bar',['yoga bar choc fudge','yoga bar'],Q,false,null,[{name:'1 bar (60g)',grams:60}],60,242,20.0,24.0,7.0,4.5,0,22,0,20,0.12,1.5),
+  mkF('Yoga Bar Granola',['yoga bar granola oats'],G,false,null,null,null,428,10.5,62.0,15.0,6.0,0,38,0,22,0.14,2.5),
+  mkF('RiteBite Max Protein Bar',['ritebite protein','max protein bar'],Q,false,null,[{name:'1 bar (67g)',grams:67}],67,300,25.0,26.0,9.0,4.0,0,20,0,300,0.1,1.5),
+  mkF('Go Zero Ice Cream',['go zero','gozero icecream'],Q,false,null,[{name:'1 cup (100g)',grams:100}],100,90,5.0,14.0,1.5,3.0,0.2,15,0.1,170,0.02,0.1),
+  mkF('Soulfull Millet Muesli',['ragi muesli','soulfull muesli'],G,false,null,null,null,380,10.0,68.0,7.0,8.0,0,55,0,42,0.1,2.0),
+  mkF('Saffola Oats',['saffola oats honey'],G,false,null,null,null,375,13.0,62.5,6.5,9.0,0,100,0,40,0.1,2.2),
+  mkF('Quaker Oats',['quaker oatmeal'],G,false,null,null,null,371,13.0,66.0,6.5,10.0,0,144,0,52,0.11,2.4),
+  mkF('Noice Protein Bar',['noice bar protein'],Q,false,null,[{name:'1 bar',grams:60}],60,240,20.0,25.0,7.0,5.0,0,20,0,20,0.1,1.2),
+  mkF('Super You Protein Bar',['super you bar'],Q,false,null,[{name:'1 bar',grams:60}],60,245,20.0,24.0,7.5,4.0,0,20,0,20,0.1,1.2),
+  mkF('Taali Makhana (flavoured)',['taali makhana peri peri'],G,false,null,null,null,360,10.5,75.0,2.0,13.0,0,65,0,58,0.02,0.15),
+  mkF('MYFitness Peanut Butter',['myfitness pb','myfitness original pb'],G,false,null,null,null,598,25.0,20.0,51.4,6.0,0,154,0,49,0.003,14.5),
+  mkF('Alpino Peanut Butter',['alpino pb'],G,false,null,null,null,598,25.0,20.0,51.4,6.0,0,154,0,49,0.003,14.5),
+  // ── PROTEIN SUPPLEMENTS ──
+  mkF('ON Gold Standard Whey',['optimum nutrition whey','gsp whey','gold standard protein'],G,false,null,null,null,380,78.0,10.0,4.0,0,0.8,40,0,200,0.1,0.5),
+  mkF('MuscleBlaze Whey Active',['muscleblaze whey','mb whey'],G,false,null,null,null,375,72.0,12.0,5.0,0,0.8,40,0,200,0.1,0.5),
+  mkF('MyProtein Impact Whey',['myprotein whey'],G,false,null,null,null,390,80.0,7.5,4.5,0,0.8,38,0,190,0.1,0.5),
+  mkF('AS-IT-IS Whey Protein',['asitis whey'],G,false,null,null,null,380,78.5,8.0,4.0,0,0.8,35,0,200,0.1,0.5),
+  mkF('Nakpro Whey Protein',['nakpro protein'],G,false,null,null,null,375,75.0,10.0,4.5,0,0.5,35,0,180,0.1,0.5),
+  mkF('HK Vitals Whey',['healthkart whey','hk whey'],G,false,null,null,null,380,76.0,10.0,4.5,0,0.8,38,0,200,0.1,0.5),
+  mkF('Bigmuscles Whey',['bigmuscles nutrition'],G,false,null,null,null,370,74.0,11.0,5.0,0,0.8,36,0,190,0.1,0.5),
+  mkF('Dymatize ISO100',['dymatize whey','iso100 protein'],G,false,null,null,null,380,82.0,5.0,2.5,0,1.0,42,0,210,0.1,0.4),
+  mkF('Whey Protein (generic)',['protein powder','whey supplement'],G,false,null,null,null,380,75.0,10.0,5.0,0,0.8,38,0,200,0.1,0.5),
+  mkF('Mass Gainer (generic)',['weight gainer supplement'],G,false,null,null,null,385,28.0,62.0,5.0,2.0,0.5,40,0,400,0.1,0.6),
+  mkF('Plant Protein (pea)',['vegan protein','pea protein supplement'],G,false,null,null,null,360,80.0,8.0,4.0,0,0.2,30,0,70,0.2,1.0),
+  // ── CHINESE-INDIAN FUSION ──
+  mkF('Hakka Noodles (veg)',['veg noodles chinese','chinese noodles'],G,false,null,null,null,188,5.5,30.0,5.5,2.0,0,15,0,15,0.03,0.5),
+  mkF('Chilli Paneer',['restaurant chilli paneer dry'],G,false,null,null,null,196,11.0,12.0,12.0,1.5,0.2,16,0.2,230,0.06,0.5),
+  mkF('Veg Manchurian',['gobi manchurian','manchow veg'],G,false,null,null,null,178,4.5,22.0,8.0,2.0,0,18,0,22,0.03,0.5),
+  mkF('Chilli Chicken',['chinese chilli chicken'],G,false,null,null,null,185,18.0,11.0,8.0,0.5,0.1,22,0.1,18,0.04,0.5),
+  mkF('Veg Fried Rice',['chinese fried rice veg'],G,false,null,null,null,185,4.5,30.0,6.0,1.0,0,15,0,15,0.03,0.6),
+  mkF('Spring Roll (fried)',['spring roll veg fried'],Q,false,null,[{name:'1 roll',grams:60}],60,218,4.0,25.0,11.0,1.5,0,12,0,14,0.03,0.6),
+  mkF('Manchow Soup',['manchow veg soup','hot sour soup'],G,false,null,null,null,65,3.0,9.5,2.0,1.0,0,12,0,18,0.02,0.2),
+  // ── WESTERN FAST FOOD ──
+  mkF('Pizza Slice (Margherita)',['cheese pizza slice','margherita pizza'],Q,false,null,[{name:'1 slice (regular)',grams:100},{name:'1 personal pizza',grams:350}],100,266,12.0,32.0,10.0,2.0,0.1,22,0.2,180,0.1,0.8),
+  mkF('McAloo Tikki Burger',['mcaloo tikki','mcdonalds aloo burger'],Q,false,null,[{name:'1 burger',grams:130}],130,320,9.0,48.0,11.5,3.0,0,20,0,85,0.05,1.2),
+  mkF('Veg Burger',['veggie burger'],Q,false,null,[{name:'Regular',grams:150}],150,330,10.0,45.0,12.0,3.0,0,22,0,90,0.05,1.2),
+  mkF('Chicken Burger',['mcchicken','chicken sandwich burger'],Q,false,null,[{name:'Regular',grams:160}],160,430,24.0,38.0,20.0,2.0,0.1,25,0.1,48,0.08,1.5),
+  mkF('KFC Chicken Piece',['kfc original chicken','fried chicken piece'],Q,false,null,[{name:'1 piece',grams:120}],120,320,25.0,11.0,21.0,0.5,0.3,22,0.1,15,0.1,3.5),
+  mkF('French Fries',['burger fries','mcdonalds fries'],G,false,null,null,null,312,3.4,41.4,14.7,3.7,0,25,0,11,0.04,1.5),
+  mkF('Subway 6-inch Veggie',['subway sandwich'],Q,false,null,[{name:'6 inch',grams:195},{name:'12 inch',grams:390}],195,228,9.5,40.0,4.0,4.0,0,25,0,92,0.06,0.8),
+  // ── JAPANESE ──
+  mkF('Tofu (firm)',['bean curd','soya tofu'],G,false,null,null,null,76,8.1,1.9,4.8,0.3,0,30,0,350,0.18,2.1),
+  mkF('Edamame',['green soybean boiled'],G,false,null,null,null,121,11.9,8.9,5.2,5.2,0,64,0,63,0.28,1.5),
+  mkF('Sushi (California Roll)',['california roll maki'],Q,false,null,[{name:'1 piece',grams:28},{name:'8 piece roll',grams:225}],28,93,3.5,13.5,2.8,0.5,0.1,12,0.1,20,0.28,0.3),
+  mkF('Miso Soup',['japanese miso'],G,false,null,null,null,25,2.0,3.4,0.9,0.2,0,8,0,31,0.1,0.3),
+  mkF('Ramen',['japanese ramen noodles'],G,false,null,null,null,68,4.0,10.0,1.5,0.5,0.2,13,0,18,0.02,0.3),
+  // ── DRINKS ──
+  mkF('Coca-Cola',['coke','cocacola','cold drink cola'],G,false,null,null,null,37,0,10.5,0,0,0,2,0,2,0,0),
+  mkF('Pepsi',['pepsi cola'],G,false,null,null,null,41,0,11.0,0,0,0,2,0,2,0,0),
+  mkF('Sprite',['lime soda'],G,false,null,null,null,39,0,10.0,0,0,0,2,0,2,0,0),
+  mkF('Thumbs Up',['thums up','thumps up'],G,false,null,null,null,43,0,11.0,0,0,0,2,0,2,0,0),
+  mkF('Maaza (mango drink)',['maaza mango','maza'],G,false,null,null,null,65,0,15.8,0.2,0,0,6,0,6,0,0),
+  mkF('Real Fruit Juice',['real juice','packaged juice'],G,false,null,null,null,56,0.5,13.5,0.1,0.2,0,8,0,8,0,0),
+  mkF('Masala Chai (with milk)',['chai','indian tea','tea with milk'],G,false,null,null,null,36,1.5,5.5,1.1,0,0.2,8,0.04,42,0.01,0.04),
+  mkF('Black Tea',['tea without milk','plain tea'],G,false,null,null,null,4,0.1,0.7,0.1,0,0,5,0,5,0,0),
+  mkF('Green Tea',['lipton green tea','herbal tea green'],G,false,null,null,null,2,0.2,0.5,0,0,0,1,0,2,0,0),
+  mkF('Black Coffee',['filter coffee black','americano'],G,false,null,null,null,5,0.3,0.8,0.1,0,0,7,0,4,0,0),
+  mkF('Coffee with Milk',['cappuccino','latte','cafe coffee'],G,false,null,null,null,37,2.0,4.0,1.5,0,0.2,10,0.04,72,0.02,0.05),
+  mkF('Protein Shake',['post workout shake','whey shake'],G,false,null,null,null,95,11.5,8.5,1.5,0,0.3,28,0.4,155,0.05,0.3),
+];
+
+// ═══════════════════════════════════════════════════════════
+//  STORAGE
 // ═══════════════════════════════════════════════════════════
 const STORAGE_KEY = 'macromind_data';
 const CACHE_KEY   = 'macromind_food_cache';
+const DEFAULT_GOALS = { calories:2000, protein:75, carbs:250, fat:70, b12:2.4, magnesium:400, vitaminD:20, calcium:1000, omega3:1.6, omega6:17 };
+// USDA FoodData Central API key — hardcoded, no user input needed
+const USDA_API_KEY = 'DEMO_KEY';
 
-const DEFAULT_GOALS = {
-  calories: 2000, protein: 75, carbs: 250, fat: 70,
-  b12: 2.4, magnesium: 400, vitaminD: 20, calcium: 1000,
-  omega3: 1.6, omega6: 17
-};
-
-function loadData() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { logs:{}, goals:{...DEFAULT_GOALS}, apiKey:'' }; }
-  catch { return { logs:{}, goals:{...DEFAULT_GOALS}, apiKey:'' }; }
-}
+function loadData() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {logs:{},goals:{...DEFAULT_GOALS}}; } catch { return {logs:{},goals:{...DEFAULT_GOALS}}; } }
 function saveData(d) { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
 function loadCache() { try { return JSON.parse(localStorage.getItem(CACHE_KEY)) || {}; } catch { return {}; } }
 function saveCache(c) { localStorage.setItem(CACHE_KEY, JSON.stringify(c)); }
 
 function getDateLog(dateStr, d) {
-  if (!d.logs[dateStr]) {
-    d.logs[dateStr] = { meals: { breakfast:[], brunch:[], lunch:[], snacks:[], dinner:[] }, totals:{} };
-  }
+  if (!d.logs[dateStr]) d.logs[dateStr] = { meals:{breakfast:[],brunch:[],lunch:[],snacks:[],dinner:[]}, totals:{} };
   return d.logs[dateStr];
-}
-
-// ═══════════════════════════════════════════════════════════
-//  LOCAL INDIAN FOOD DICTIONARY
-// ═══════════════════════════════════════════════════════════
-const INDIAN_FOODS = {
-  'roti':         { calories:297, protein:9,  carbs:62, fat:2,  b12:0,   magnesium:25,   vitaminD:0, calcium:16,  omega3:0.04, omega6:0.7,  rawToCookedFactor:null },
-  'chapati':      { calories:297, protein:9,  carbs:62, fat:2,  b12:0,   magnesium:25,   vitaminD:0, calcium:16,  omega3:0.04, omega6:0.7,  rawToCookedFactor:null },
-  'paratha':      { calories:326, protein:8,  carbs:55, fat:9,  b12:0,   magnesium:20,   vitaminD:0, calcium:30,  omega3:0.05, omega6:0.8,  rawToCookedFactor:null },
-  'dal':          { calories:116, protein:9,  carbs:20, fat:0.4,b12:0,   magnesium:37,   vitaminD:0, calcium:20,  omega3:0.06, omega6:0.2,  rawToCookedFactor:2.5 },
-  'rice cooked':  { calories:130, protein:2.7,carbs:28, fat:0.3,b12:0,   magnesium:13,   vitaminD:0, calcium:10,  omega3:0.01, omega6:0.06, rawToCookedFactor:null },
-  'rice raw':     { calories:365, protein:7,  carbs:80, fat:0.7,b12:0,   magnesium:35,   vitaminD:0, calcium:28,  omega3:0.03, omega6:0.16, rawToCookedFactor:3.0 },
-  'rice':         { calories:365, protein:7,  carbs:80, fat:0.7,b12:0,   magnesium:35,   vitaminD:0, calcium:28,  omega3:0.03, omega6:0.16, rawToCookedFactor:3.0 },
-  'oats':         { calories:389, protein:17, carbs:66, fat:7,  b12:0,   magnesium:177,  vitaminD:0, calcium:54,  omega3:0.11, omega6:2.42, rawToCookedFactor:2.0 },
-  'wheat':        { calories:340, protein:13, carbs:72, fat:2.5,b12:0,   magnesium:126,  vitaminD:0, calcium:34,  omega3:0.07, omega6:0.82, rawToCookedFactor:2.0 },
-  'millet':       { calories:378, protein:11, carbs:73, fat:4.2,b12:0,   magnesium:114,  vitaminD:0, calcium:8,   omega3:0.11, omega6:2.0,  rawToCookedFactor:2.5 },
-  'bajra':        { calories:378, protein:11, carbs:73, fat:4.2,b12:0,   magnesium:114,  vitaminD:0, calcium:8,   omega3:0.11, omega6:2.0,  rawToCookedFactor:2.5 },
-  'jowar':        { calories:329, protein:10, carbs:68, fat:3.5,b12:0,   magnesium:165,  vitaminD:0, calcium:28,  omega3:0.1,  omega6:1.5,  rawToCookedFactor:2.5 },
-  'paneer':       { calories:265, protein:18, carbs:3,  fat:20, b12:0.8, magnesium:8,    vitaminD:0.5,calcium:480,omega3:0.2,  omega6:0.5,  rawToCookedFactor:null },
-  'idli':         { calories:58,  protein:2,  carbs:12, fat:0.4,b12:0,   magnesium:10,   vitaminD:0, calcium:12,  omega3:0.01, omega6:0.1,  rawToCookedFactor:null },
-  'dosa':         { calories:168, protein:4,  carbs:24, fat:6,  b12:0,   magnesium:12,   vitaminD:0, calcium:15,  omega3:0.05, omega6:0.4,  rawToCookedFactor:null },
-  'upma':         { calories:163, protein:4,  carbs:22, fat:6,  b12:0,   magnesium:30,   vitaminD:0, calcium:12,  omega3:0.06, omega6:0.5,  rawToCookedFactor:null },
-  'poha':         { calories:130, protein:2,  carbs:28, fat:1,  b12:0,   magnesium:12,   vitaminD:0, calcium:8,   omega3:0.01, omega6:0.08, rawToCookedFactor:null },
-  'khichdi':      { calories:115, protein:4.5,carbs:20, fat:2.5,b12:0,   magnesium:15,   vitaminD:0, calcium:18,  omega3:0.05, omega6:0.2,  rawToCookedFactor:null },
-  'curd':         { calories:61,  protein:3.5,carbs:4.7,fat:3.3,b12:0.9, magnesium:11,   vitaminD:0.1,calcium:121,omega3:0.05, omega6:0.07, rawToCookedFactor:null },
-  'milk':         { calories:61,  protein:3.2,carbs:4.8,fat:3.3,b12:1.0, magnesium:10,   vitaminD:1.2,calcium:113,omega3:0.05, omega6:0.07, rawToCookedFactor:null },
-  'chickpeas':    { calories:164, protein:9,  carbs:27, fat:2.6,b12:0,   magnesium:48,   vitaminD:0, calcium:49,  omega3:0.07, omega6:1.1,  rawToCookedFactor:2.5 },
-  'rajma':        { calories:127, protein:8.7,carbs:22, fat:0.5,b12:0,   magnesium:45,   vitaminD:0, calcium:50,  omega3:0.06, omega6:0.2,  rawToCookedFactor:2.5 },
-  'moong dal':    { calories:105, protein:7,  carbs:18, fat:0.4,b12:0,   magnesium:48,   vitaminD:0, calcium:27,  omega3:0.03, omega6:0.2,  rawToCookedFactor:2.5 },
-  'toor dal':     { calories:116, protein:7,  carbs:20, fat:0.4,b12:0,   magnesium:37,   vitaminD:0, calcium:24,  omega3:0.06, omega6:0.2,  rawToCookedFactor:2.5 },
-  'chana dal':    { calories:164, protein:9,  carbs:27, fat:2,  b12:0,   magnesium:48,   vitaminD:0, calcium:49,  omega3:0.07, omega6:1.1,  rawToCookedFactor:2.5 },
-  'egg':          { calories:155, protein:13, carbs:1.1,fat:11, b12:1.1, magnesium:12,   vitaminD:2.0,calcium:56, omega3:0.05, omega6:1.5,  rawToCookedFactor:null },
-  'chicken':      { calories:165, protein:31, carbs:0,  fat:3.6,b12:0.3, magnesium:29,   vitaminD:0.1,calcium:15, omega3:0.05, omega6:0.6,  rawToCookedFactor:null },
-  'fish':         { calories:134, protein:26, carbs:0,  fat:3,  b12:3.0, magnesium:28,   vitaminD:6.0,calcium:20, omega3:1.5,  omega6:0.2,  rawToCookedFactor:null },
-  'spinach':      { calories:23,  protein:2.9,carbs:3.6,fat:0.4,b12:0,   magnesium:79,   vitaminD:0, calcium:99,  omega3:0.14, omega6:0.03, rawToCookedFactor:4.0 },
-  'potato':       { calories:77,  protein:2,  carbs:17, fat:0.1,b12:0,   magnesium:23,   vitaminD:0, calcium:12,  omega3:0.01, omega6:0.02, rawToCookedFactor:null },
-  'tomato':       { calories:18,  protein:0.9,carbs:3.9,fat:0.2,b12:0,   magnesium:11,   vitaminD:0, calcium:10,  omega3:0.01, omega6:0.08, rawToCookedFactor:null },
-  'onion':        { calories:40,  protein:1.1,carbs:9.3,fat:0.1,b12:0,   magnesium:10,   vitaminD:0, calcium:23,  omega3:0.01, omega6:0.04, rawToCookedFactor:null },
-  'banana':       { calories:89,  protein:1.1,carbs:23, fat:0.3,b12:0,   magnesium:27,   vitaminD:0, calcium:5,   omega3:0.03, omega6:0.05, rawToCookedFactor:null },
-  'apple':        { calories:52,  protein:0.3,carbs:14, fat:0.2,b12:0,   magnesium:5,    vitaminD:0, calcium:6,   omega3:0.01, omega6:0.05, rawToCookedFactor:null },
-  'bread':        { calories:265, protein:9,  carbs:49, fat:3.2,b12:0,   magnesium:23,   vitaminD:0, calcium:107, omega3:0.07, omega6:0.6,  rawToCookedFactor:null },
-  'butter':       { calories:717, protein:0.9,carbs:0.1,fat:81, b12:0.2, magnesium:2,    vitaminD:1.5,calcium:24, omega3:0.32, omega6:2.7,  rawToCookedFactor:null },
-  'ghee':         { calories:900, protein:0,  carbs:0,  fat:100,b12:0,   magnesium:0,    vitaminD:0.4,calcium:4,  omega3:0.5,  omega6:3.0,  rawToCookedFactor:null },
-  'almonds':      { calories:579, protein:21, carbs:22, fat:50, b12:0,   magnesium:270,  vitaminD:0, calcium:264, omega3:0.003,omega6:12.3, rawToCookedFactor:null },
-  'walnuts':      { calories:654, protein:15, carbs:14, fat:65, b12:0,   magnesium:158,  vitaminD:0, calcium:98,  omega3:9.1,  omega6:38.1, rawToCookedFactor:null },
-  'chia seeds':   { calories:486, protein:17, carbs:42, fat:31, b12:0,   magnesium:335,  vitaminD:0, calcium:631, omega3:17.8, omega6:5.8,  rawToCookedFactor:null },
-  'flaxseeds':    { calories:534, protein:18, carbs:29, fat:42, b12:0,   magnesium:392,  vitaminD:0, calcium:255, omega3:22.8, omega6:5.9,  rawToCookedFactor:null },
-  'broccoli':     { calories:34,  protein:2.8,carbs:7,  fat:0.4,b12:0,   magnesium:21,   vitaminD:0, calcium:47,  omega3:0.1,  omega6:0.04, rawToCookedFactor:3.0 },
-  'carrot':       { calories:41,  protein:0.9,carbs:10, fat:0.2,b12:0,   magnesium:12,   vitaminD:0, calcium:33,  omega3:0.01, omega6:0.12, rawToCookedFactor:null },
-  'cucumber':     { calories:15,  protein:0.7,carbs:3.6,fat:0.1,b12:0,   magnesium:13,   vitaminD:0, calcium:16,  omega3:0.01, omega6:0.04, rawToCookedFactor:null },
-  'lentils':      { calories:116, protein:9,  carbs:20, fat:0.4,b12:0,   magnesium:36,   vitaminD:0, calcium:19,  omega3:0.06, omega6:0.2,  rawToCookedFactor:2.5 },
-  'sambhar':      { calories:55,  protein:3,  carbs:8,  fat:1.5,b12:0,   magnesium:22,   vitaminD:0, calcium:35,  omega3:0.05, omega6:0.2,  rawToCookedFactor:null },
-  'puri':         { calories:330, protein:7,  carbs:50, fat:12, b12:0,   magnesium:20,   vitaminD:0, calcium:15,  omega3:0.08, omega6:1.5,  rawToCookedFactor:null },
-  'aloo':         { calories:77,  protein:2,  carbs:17, fat:0.1,b12:0,   magnesium:23,   vitaminD:0, calcium:12,  omega3:0.01, omega6:0.02, rawToCookedFactor:null },
-};
-
-// foods that need cooking state
-const NEEDS_COOKING_STATE = [
-  'rice','oats','wheat','millet','bajra','jowar','dal','moong dal','toor dal','chana dal',
-  'chickpeas','rajma','lentils','spinach','broccoli',
-  'raw vegetable','green beans','peas'
-];
-
-function needsCookingState(name) {
-  const n = name.toLowerCase();
-  return NEEDS_COOKING_STATE.some(k => n.includes(k));
 }
 
 // ═══════════════════════════════════════════════════════════
 //  STATE
 // ═══════════════════════════════════════════════════════════
-let appData = loadData();
-let foodCache = loadCache();
-let currentDate = todayStr();
-let analyticsPeriod = 7;
+let currentDate = new Date();
+let currentDateStr = toDateStr(currentDate);
 let calChart = null, proteinChart = null;
-let searchTimers = {};
-let selectedFood = {};  // meal -> currently selected autocomplete food obj
-let focusedDropdownItem = {}; // per meal
+let analyticsPeriod = 7;
+// Per-meal search state for merged results
+const searchState = {}; // mealId -> {local:[], apis:[], loading:bool, query:''}
+// Per-meal selected food state for the add row
+const mealFoodState = {}; // mealId -> {food:null, mode:'grams', qty:1, sizeIdx:0}
 
-function todayStr() {
-  return new Date().toISOString().split('T')[0];
+function toDateStr(d) { return d.toISOString().slice(0,10); }
+function isToday(ds) { return ds === toDateStr(new Date()); }
+
+// ═══════════════════════════════════════════════════════════
+//  COOKING STATE DETECTION
+// ═══════════════════════════════════════════════════════════
+// Only raw grains, raw pulses, raw vegetables need cooking state
+const RAW_GRAIN_KEYS = ['rice (raw)','rice raw','oats (raw)','oats raw','bajra','jowar','ragi','quinoa (raw)','barley','corn / maize','maize','wheat (whole)'];
+const RAW_PULSE_KEYS = ['toor dal (raw)','moong dal (raw)','chana dal (raw)','masoor dal (raw)','urad dal (raw)','rajma (raw)','chole / chickpeas (raw)','green moong (whole raw)','lobia','horse gram (raw)','soybean (raw)'];
+const RAW_VEG_KEYS   = ['spinach (raw)','fenugreek leaves (raw)','cabbage (raw)','cauliflower (raw)','broccoli (raw)','peas (raw)','bottle gourd (raw)','green beans (raw)','potato (raw)','sweet potato (raw)'];
+
+function needsCookingState(food) {
+  if (!food) return false;
+  if (food.needsCookingState === true) return true;
+  if (food.needsCookingState === false) return false;
+  // Fallback for API foods: check name
+  const n = food.name.toLowerCase();
+  const badKeywords = ['curry','masala','bhaji','sabzi','dosa','idli','vada','uttapam','biryani','pulao','khichdi','sambar','rasam','pakora','samosa','roti','chapati','paratha','puri','naan','bread','egg','omelette','milk','curd','yogurt','paneer','cheese','butter','ghee','oil','fruit','banana','apple','mango','orange','nut','seed','almond','walnut','cashew','peanut','protein','whey','supplement','bar','biscuit','chip','snack','juice','drink','water','tea','coffee','cola','pizza','burger','fries','biryani','poha','upma','halwa','kheer','ladoo'];
+  if (badKeywords.some(k => n.includes(k))) return false;
+  const goodKeywords = ['raw','uncooked','grain','lentil','dal (raw)','rice raw','oat raw','wheat raw','millet','bajra','jowar','ragi','barley','quinoa raw','spinach raw','cabbage raw'];
+  return goodKeywords.some(k => n.includes(k));
 }
 
 // ═══════════════════════════════════════════════════════════
 //  PAGE ROUTING
 // ═══════════════════════════════════════════════════════════
-function showPage(page) {
+function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-' + page).classList.add('active');
-  const tab = document.getElementById('tab-' + page);
-  if (tab) tab.classList.add('active');
+  document.getElementById('page-' + id).classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
 }
 
-// ═══════════════════════════════════════════════════════════
-//  SETTINGS
-// ═══════════════════════════════════════════════════════════
-function toggleSettings() {
-  const panel = document.getElementById('settings-panel');
-  panel.classList.toggle('open');
-  if (panel.classList.contains('open')) {
-    const input = document.getElementById('api-key-input');
-    if (appData.apiKey) input.placeholder = '••••••••••••••••••••••••••••••';
-    updateKeyStatus();
-  }
-}
-function saveApiKey() {
-  const val = document.getElementById('api-key-input').value.trim();
-  if (!val) { showToast('Please enter an API key', 'error'); return; }
-  appData.apiKey = val;
-  saveData(appData);
-  document.getElementById('api-key-input').value = '';
-  document.getElementById('api-key-input').placeholder = '••••••••••••••••••••••••••••••';
-  updateKeyStatus();
-  showToast('API key saved securely', 'success');
-}
-function updateKeyStatus() {
-  const el = document.getElementById('key-status');
-  if (appData.apiKey) { el.style.display = ''; } else { el.style.display = 'none'; }
-}
+
 
 // ═══════════════════════════════════════════════════════════
-//  MEAL CARD BUILDER
+//  MEAL CARDS
 // ═══════════════════════════════════════════════════════════
 const MEALS = [
-  { id:'breakfast', name:'Breakfast',     icon:'🌅', color:'rgba(255,181,71,0.15)',  iconBg:'rgba(255,181,71,0.2)' },
-  { id:'brunch',    name:'Brunch',        icon:'🥗', color:'rgba(0,229,160,0.1)',   iconBg:'rgba(0,229,160,0.15)' },
-  { id:'lunch',     name:'Lunch',         icon:'🍛', color:'rgba(79,158,255,0.1)',  iconBg:'rgba(79,158,255,0.15)' },
-  { id:'snacks',    name:'Evening Snacks',icon:'☕', color:'rgba(200,100,255,0.1)', iconBg:'rgba(200,100,255,0.15)' },
-  { id:'dinner',    name:'Dinner',        icon:'🌙', color:'rgba(255,79,106,0.1)',  iconBg:'rgba(255,79,106,0.15)' },
+  {id:'breakfast',label:'Breakfast',icon:'🌅',bg:'rgba(255,180,100,0.12)'},
+  {id:'brunch',label:'Brunch',icon:'🥗',bg:'rgba(100,220,180,0.12)'},
+  {id:'lunch',label:'Lunch',icon:'🍛',bg:'rgba(100,150,255,0.12)'},
+  {id:'snacks',label:'Evening Snacks',icon:'☕',bg:'rgba(180,130,255,0.12)'},
+  {id:'dinner',label:'Dinner',icon:'🌙',bg:'rgba(80,100,200,0.12)'},
 ];
 
 function buildMealCards() {
   const container = document.getElementById('meal-cards-container');
-  container.innerHTML = '';
-  MEALS.forEach(meal => {
-    const card = document.createElement('div');
-    card.className = 'glass-card meal-card';
-    card.id = `meal-${meal.id}`;
-    card.innerHTML = `
-      <div class="meal-card-header" onclick="toggleMeal('${meal.id}')">
-        <div class="meal-icon" style="background:${meal.iconBg}">${meal.icon}</div>
+  container.innerHTML = MEALS.map(m => `
+    <div class="glass-card meal-card" id="card-${m.id}">
+      <div class="meal-card-header" onclick="toggleMeal('${m.id}')">
+        <div class="meal-icon" style="background:${m.bg}">${m.icon}</div>
         <div class="meal-info">
-          <div class="meal-name">${meal.name}</div>
-          <div class="meal-cal-total" id="meal-total-${meal.id}">0 kcal</div>
+          <div class="meal-name">${m.label}</div>
+          <div class="meal-cal-total" id="meal-cal-${m.id}">0 kcal</div>
         </div>
-        <div class="meal-cal-badge" id="meal-badge-${meal.id}">0 kcal</div>
-        <svg class="meal-chevron" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        <span class="meal-cal-badge" id="meal-badge-${m.id}">0 kcal</span>
+        <span class="meal-chevron">▾</span>
       </div>
-      <div class="meal-body" id="meal-body-${meal.id}">
-        ${buildSearchRow(meal.id)}
-        <div id="entries-wrap-${meal.id}">
-          ${buildEntriesTable(meal.id)}
-        </div>
-      </div>`;
-    container.appendChild(card);
-  });
-  updateAllMealTotals();
+      <div class="meal-body" id="body-${m.id}">
+        ${buildSearchRow(m.id)}
+        <div id="entries-${m.id}"></div>
+      </div>
+    </div>`).join('');
 }
 
-function toggleMeal(mealId) {
-  const card = document.getElementById(`meal-${mealId}`);
-  card.classList.toggle('expanded');
+function toggleMeal(id) {
+  document.getElementById('card-' + id).classList.toggle('expanded');
 }
 
 function buildSearchRow(mealId) {
-  return `
-    <div class="food-search-row" style="position:relative">
-      <div style="position:relative;flex:1">
-        <input type="text" class="food-search-input" id="search-${mealId}"
-          placeholder="Search food…"
-          oninput="debounceSearch('${mealId}')"
-          onkeydown="handleSearchKey(event,'${mealId}')"
-          autocomplete="off">
-        <div class="autocomplete-dropdown" id="dropdown-${mealId}"></div>
+  return `<div class="food-search-row" id="searchrow-${mealId}">
+    <div class="search-wrap">
+      <input type="text" class="food-search-input" id="search-${mealId}"
+        placeholder="Search food…"
+        oninput="debouncedSearch('${mealId}', this.value)"
+        onkeydown="handleSearchKey(event,'${mealId}')">
+      <div class="autocomplete-dropdown" id="dropdown-${mealId}"></div>
+    </div>
+    <div class="qty-size-group" id="qsg-${mealId}">
+      <div class="qty-size-inner">
+        <input type="number" class="food-qty-input" id="qty-${mealId}" value="1" min="0.5" step="0.5"
+          oninput="onQtyInput('${mealId}')">
+        <select class="size-select" id="sizesel-${mealId}" onchange="onSizeChange('${mealId}')"></select>
       </div>
-      <input type="number" class="food-grams-input" id="grams-${mealId}" placeholder="grams" min="1" value="100">
-      <select class="cooking-state-sel" id="cooking-${mealId}">
-        <option value="cooked">Cooked</option>
-        <option value="raw">Raw</option>
-      </select>
-      <button class="btn-add-food" id="add-btn-${mealId}" onclick="addFood('${mealId}')">+ Add</button>
-    </div>`;
+      <span class="unit-hint" id="unithint-${mealId}"></span>
+    </div>
+    <input type="number" class="food-grams-input" id="grams-${mealId}" value="100" min="1"
+      oninput="onGramsInput('${mealId}')">
+    <button class="mode-toggle-pill" id="modetoggle-${mealId}"
+      onclick="toggleInputMode('${mealId}')">Qty ⇄ g</button>
+    <select class="cooking-state-sel" id="cooking-${mealId}">
+      <option value="cooked">Cooked</option>
+      <option value="raw">Raw</option>
+    </select>
+    <button class="btn-add-food" onclick="addFood('${mealId}')">+ Add</button>
+  </div>`;
 }
 
-function buildEntriesTable(mealId) {
-  const log = getDateLog(currentDate, appData);
-  const entries = log.meals[mealId] || [];
-  if (!entries.length) return `<div class="empty-meal">No foods logged yet</div>`;
-  return `
-    <table class="food-entries-table">
-      <thead><tr>
-        <th>Food</th><th>State</th><th>g</th><th>kcal</th><th>Protein</th><th>Actions</th>
-      </tr></thead>
-      <tbody>
-        ${entries.map((e,i) => buildEntryRow(mealId, e, i)).join('')}
-      </tbody>
-    </table>`;
+// ═══════════════════════════════════════════════════════════
+//  INPUT STATE MANAGEMENT
+// ═══════════════════════════════════════════════════════════
+function initMealFoodState(mealId) {
+  mealFoodState[mealId] = { food: null, mode: 'grams', qty: 1, sizeIdx: 0 };
 }
 
-function buildEntryRow(mealId, entry, idx, editing=false) {
-  if (editing) {
-    return `<tr id="entry-row-${mealId}-${idx}">
-      <td colspan="4">
-        <input class="entry-edit-input" type="text" id="edit-name-${mealId}-${idx}" value="${entry.name}" style="width:100%;margin-bottom:4px">
-        <input class="entry-edit-input" type="number" id="edit-grams-${mealId}-${idx}" value="${entry.grams}" style="width:80px">g
-      </td>
-      <td></td>
-      <td>
-        <div class="entry-actions">
-          <button class="btn-entry-action btn-save-entry" onclick="saveEntryEdit('${mealId}',${idx})" title="Save">✓</button>
-          <button class="btn-entry-action btn-delete" onclick="deleteEntry('${mealId}',${idx})" title="Delete">🗑</button>
-        </div>
-      </td>
-    </tr>`;
+function selectFood(mealId, food) {
+  if (!mealFoodState[mealId]) initMealFoodState(mealId);
+  mealFoodState[mealId].food = food;
+  mealFoodState[mealId].mode = food.measureType || 'grams';
+  mealFoodState[mealId].qty = 1;
+  mealFoodState[mealId].sizeIdx = 0;
+  updateSearchRowUI(mealId);
+}
+
+function updateSearchRowUI(mealId) {
+  const state = mealFoodState[mealId];
+  if (!state || !state.food) return;
+  const food = state.food;
+  const mode = state.mode;
+
+  const qsg = document.getElementById('qsg-' + mealId);
+  const gramsIn = document.getElementById('grams-' + mealId);
+  const toggleBtn = document.getElementById('modetoggle-' + mealId);
+  const cookingSel = document.getElementById('cooking-' + mealId);
+  const sizesel = document.getElementById('sizesel-' + mealId);
+  const unithint = document.getElementById('unithint-' + mealId);
+
+  // Show/hide based on mode
+  if (mode === 'qty') {
+    qsg.classList.add('visible');
+    gramsIn.style.display = 'none';
+    toggleBtn.classList.add('visible');
+    toggleBtn.classList.remove('grams-active');
+    toggleBtn.textContent = 'Qty ⇄ g';
+  } else {
+    qsg.classList.remove('visible');
+    gramsIn.style.display = 'block';
+    toggleBtn.classList.add('visible');
+    toggleBtn.classList.add('grams-active');
+    toggleBtn.textContent = 'g ⇄ Qty';
   }
-  const state = entry.cookingState ? `<span style="font-size:0.72rem;color:var(--text3)">${entry.cookingState}</span>` : '—';
-  return `<tr id="entry-row-${mealId}-${idx}">
-    <td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${entry.name}">${entry.name}</td>
-    <td>${state}</td>
-    <td>${entry.grams}</td>
-    <td style="color:var(--accent);font-weight:600">${Math.round(entry.calories)}</td>
-    <td style="color:var(--accent2)">${entry.protein ? entry.protein.toFixed(1)+'g' : '—'}</td>
+
+  // Populate size dropdown
+  if (food.sizes && food.sizes.length > 0) {
+    sizesel.style.display = 'block';
+    sizesel.innerHTML = food.sizes.map((s,i) => `<option value="${i}">${s.name} (${s.grams}g)</option>`).join('');
+    sizesel.value = state.sizeIdx;
+    unithint.textContent = '';
+  } else if (food.unitWeight) {
+    sizesel.style.display = 'none';
+    unithint.textContent = `approx ${food.unitWeight}g per piece`;
+  } else {
+    sizesel.style.display = 'none';
+    unithint.textContent = '';
+  }
+
+  // Cooking state
+  if (needsCookingState(food)) {
+    cookingSel.classList.add('visible');
+  } else {
+    cookingSel.classList.remove('visible');
+  }
+
+  // Sync gram input with current qty
+  if (mode === 'qty') syncGramsFromQty(mealId);
+}
+
+function syncGramsFromQty(mealId) {
+  const state = mealFoodState[mealId];
+  if (!state || !state.food) return;
+  const grams = calcGramsFromState(mealId);
+  const gramsIn = document.getElementById('grams-' + mealId);
+  gramsIn.value = grams;
+}
+
+function calcGramsFromState(mealId) {
+  const state = mealFoodState[mealId];
+  if (!state || !state.food) return parseFloat(document.getElementById('grams-' + mealId).value) || 100;
+  const food = state.food;
+  const qty = state.qty || 1;
+  if (state.mode === 'grams') return parseFloat(document.getElementById('grams-' + mealId).value) || 100;
+  if (food.sizes && food.sizes.length > 0) {
+    const sz = food.sizes[state.sizeIdx] || food.sizes[0];
+    return qty * sz.grams;
+  } else if (food.unitWeight) {
+    return qty * food.unitWeight;
+  }
+  return parseFloat(document.getElementById('grams-' + mealId).value) || 100;
+}
+
+function toggleInputMode(mealId) {
+  const state = mealFoodState[mealId];
+  if (!state || !state.food) return;
+  const food = state.food;
+  if (state.mode === 'qty') {
+    // Switch to grams, auto-fill grams from qty
+    const grams = calcGramsFromState(mealId);
+    state.mode = 'grams';
+    updateSearchRowUI(mealId);
+    document.getElementById('grams-' + mealId).value = grams;
+  } else {
+    // switch to qty, auto-fill qty from grams
+    const grams = parseFloat(document.getElementById('grams-' + mealId).value) || 100;
+    state.mode = 'qty';
+    // Only set qty if we have a unit weight
+    let unitW = 100;
+    if (food.sizes && food.sizes.length > 0) unitW = food.sizes[state.sizeIdx]?.grams || 100;
+    else if (food.unitWeight) unitW = food.unitWeight;
+    state.qty = Math.round((grams / unitW) * 2) / 2; // round to 0.5
+    if (state.qty < 0.5) state.qty = 0.5;
+    updateSearchRowUI(mealId);
+    document.getElementById('qty-' + mealId).value = state.qty;
+  }
+}
+
+function onQtyInput(mealId) {
+  const state = mealFoodState[mealId];
+  if (!state) return;
+  state.qty = parseFloat(document.getElementById('qty-' + mealId).value) || 1;
+  syncGramsFromQty(mealId);
+}
+
+function onSizeChange(mealId) {
+  const state = mealFoodState[mealId];
+  if (!state) return;
+  state.sizeIdx = parseInt(document.getElementById('sizesel-' + mealId).value) || 0;
+  syncGramsFromQty(mealId);
+}
+
+function onGramsInput(mealId) {
+  // Nothing extra needed; just reads value when adding
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SEARCH – LOCAL DB
+// ═══════════════════════════════════════════════════════════
+function searchLocalDB(query) {
+  const q = query.toLowerCase().trim();
+  if (q.length < 1) return [];
+  const words = q.split(/\s+/);
+
+  return LOCAL_FOODS_DB.map(food => {
+    const name = food.name.toLowerCase();
+    const aliases = (food.aliases || []).map(a => a.toLowerCase());
+    let score = 0;
+    if (name === q) score = 100;
+    else if (name.startsWith(q)) score = 90;
+    else if (name.includes(q)) score = 70;
+    else if (aliases.some(a => a === q)) score = 85;
+    else if (aliases.some(a => a.startsWith(q))) score = 75;
+    else if (aliases.some(a => a.includes(q))) score = 55;
+    else if (words.length > 1 && words.every(w => name.includes(w) || aliases.some(a => a.includes(w)))) score = 65;
+    return score > 0 ? { ...food, per100g: { ...food.per100g }, matchScore: score } : null;
+  }).filter(Boolean).sort((a, b) => b.matchScore - a.matchScore).slice(0, 8);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SEARCH – USDA API
+// ═══════════════════════════════════════════════════════════
+async function searchUSDA(query) {
+  const cache = loadCache();
+  if (cache[query]) return cache[query].map(r => ({...r, source:'usda'}));
+  const url = `https://api.nal.usda.gov/fdc/v1/foods/search?query=${encodeURIComponent(query)}&pageSize=6&api_key=${USDA_API_KEY}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('USDA error');
+  const json = await res.json();
+  const getNut = (arr, name) => arr?.find(n => n.nutrientName?.toLowerCase().includes(name))?.value || 0;
+  const results = (json.foods || []).slice(0, 5).map(f => {
+    const n = f.foodNutrients || [];
+    const per100g = {
+      calories: getNut(n,'energy'), protein: getNut(n,'protein'),
+      carbs: getNut(n,'carbohydrate'), fat: getNut(n,'total lipid'),
+      fiber: getNut(n,'fiber'), b12: getNut(n,'vitamin b-12'),
+      magnesium: getNut(n,'magnesium'), vitaminD: getNut(n,'vitamin d'),
+      calcium: getNut(n,'calcium'), omega3: getNut(n,'18:3'), omega6: getNut(n,'18:2'),
+    };
+    return { source:'usda', name: f.description, measureType:'grams',
+      needsCookingState: false, rawToCookedFactor: null, sizes: null, unitWeight: null, per100g };
+  });
+  cache[query] = results.map(r => ({...r}));
+  saveCache(cache);
+  return results;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SEARCH – OPEN FOOD FACTS
+// ═══════════════════════════════════════════════════════════
+async function searchOpenFoodFacts(query) {
+  const url = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(query)}&search_simple=1&action=process&json=1&page_size=8&fields=product_name,nutriments`;
+  const res = await fetch(url, {signal: AbortSignal.timeout(6000)});
+  if (!res.ok) throw new Error('OFF error');
+  const data = await res.json();
+  return (data.products || []).filter(p => p.product_name).slice(0, 5).map(p => {
+    const n = p.nutriments || {};
+    const kcal = n['energy-kcal_100g'] || (n['energy_100g'] ? n['energy_100g'] / 4.18 : 0);
+    return {
+      source: 'off', name: p.product_name.trim(), measureType: 'grams',
+      needsCookingState: false, rawToCookedFactor: null, sizes: null, unitWeight: null,
+      per100g: { calories: kcal, protein: n['proteins_100g']||0, carbs: n['carbohydrates_100g']||0,
+        fat: n['fat_100g']||0, fiber: n['fiber_100g']||0, b12: n['vitamin-b12_100g']||0,
+        magnesium: n['magnesium_100g']||0, vitaminD: n['vitamin-d_100g']||0,
+        calcium: n['calcium_100g']||0, omega3: n['omega-3-fat_100g']||0, omega6: n['omega-6-fat_100g']||0,
+      }
+    };
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SEARCH – WGER
+// ═══════════════════════════════════════════════════════════
+async function searchWger(query) {
+  const url = `https://wger.de/api/v2/ingredient/?format=json&language=2&name=${encodeURIComponent(query)}&limit=5`;
+  const res = await fetch(url, {signal: AbortSignal.timeout(6000)});
+  if (!res.ok) throw new Error('Wger error');
+  const data = await res.json();
+  return (data.results || []).filter(i => i.name).map(i => ({
+    source: 'wger', name: i.name.trim(), measureType: 'grams',
+    needsCookingState: false, rawToCookedFactor: null, sizes: null, unitWeight: null,
+    per100g: { calories: i.energy||0, protein: parseFloat(i.protein)||0,
+      carbs: parseFloat(i.carbohydrates)||0, fat: parseFloat(i.fat)||0,
+      fiber: parseFloat(i.fiber)||0, b12:0, magnesium:0, vitaminD:0, calcium:0, omega3:0, omega6:0,
+    }
+  }));
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SEARCH – PERFORM & RENDER
+// ═══════════════════════════════════════════════════════════
+const debounceTimers = {};
+function debouncedSearch(mealId, query) {
+  clearTimeout(debounceTimers[mealId]);
+  debounceTimers[mealId] = setTimeout(() => performSearch(mealId, query), 300);
+}
+
+async function performSearch(mealId, query) {
+  query = query.trim();
+  if (query.length < 2) { closeDropdown(mealId); return; }
+  searchState[mealId] = { local:[], apis:[], loading:true, query };
+
+  // 1. Instant local search
+  const local = searchLocalDB(query);
+  searchState[mealId].local = local;
+  renderDropdown(mealId);
+
+  // 2. Shimmer while APIs load
+  if (local.length < 8) appendShimmer(mealId);
+
+  // 3. All three APIs simultaneously — render as each arrives
+  const apiFns = [searchUSDA, searchOpenFoodFacts, searchWger];
+  const promises = apiFns.map(fn =>
+    fn(query).then(results => {
+      if (searchState[mealId]?.query !== query) return;
+      if (results.length > 0) {
+        searchState[mealId].apis.push(...results);
+        renderDropdown(mealId);
+      }
+    }).catch(() => {})
+  );
+  await Promise.all(promises);
+
+  if (searchState[mealId]?.query !== query) return;
+  searchState[mealId].loading = false;
+  renderDropdown(mealId);
+
+  // Show not found if nothing anywhere
+  const state = searchState[mealId];
+  if (!state.local.length && !state.apis.length) {
+    const dd = document.getElementById('dropdown-' + mealId);
+    dd.innerHTML = `<div class="autocomplete-empty">Food not found. Try a different spelling or simpler name.</div>`;
+    dd.classList.add('open');
+  }
+}
+
+function mergeResults(mealId) {
+  const state = searchState[mealId];
+  if (!state) return [];
+  const all = [...state.local, ...state.apis];
+  const seen = new Set();
+  return all.filter(r => {
+    const key = r.name.toLowerCase().replace(/[^\w]/g, '').slice(0, 25);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  }).slice(0, 12);
+}
+
+function renderDropdown(mealId) {
+  const dd = document.getElementById('dropdown-' + mealId);
+  if (!dd) return;
+  const results = mergeResults(mealId);
+  if (!results.length) return;
+
+  const srcLabel = {usda:'USDA', off:'OFF', wger:'Wger', local:'Local'};
+  dd.innerHTML = results.map((r, i) => {
+    const n = r.per100g;
+    const cals = Math.round(n.calories);
+    const prot = n.protein.toFixed(1);
+    const src = r.source || 'local';
+    return `<div class="autocomplete-item" data-idx="${i}" onclick="onDropdownSelect('${mealId}',${i})"
+      onmouseenter="highlightItem('${mealId}',${i})">
+      <div class="autocomplete-item-top">
+        <span class="autocomplete-item-name">${escHtml(r.name)}</span>
+        <span class="autocomplete-source source-${src}">${srcLabel[src]||src}</span>
+      </div>
+      <div class="autocomplete-item-meta">${cals} kcal · ${prot}g protein per 100g</div>
+    </div>`;
+  }).join('');
+  dd.classList.add('open');
+  dd.setAttribute('data-results', JSON.stringify(results));
+}
+
+function appendShimmer(mealId) {
+  const dd = document.getElementById('dropdown-' + mealId);
+  if (!dd || !dd.classList.contains('open')) return;
+  const shimmer = document.createElement('div');
+  shimmer.className = 'autocomplete-loading';
+  shimmer.id = 'shimmer-' + mealId;
+  shimmer.innerHTML = `<div class="shimmer-line"></div><div class="shimmer-line short"></div>`;
+  dd.appendChild(shimmer);
+}
+
+function onDropdownSelect(mealId, idx) {
+  const dd = document.getElementById('dropdown-' + mealId);
+  const results = JSON.parse(dd.getAttribute('data-results') || '[]');
+  const food = results[idx];
+  if (!food) return;
+  document.getElementById('search-' + mealId).value = food.name;
+  closeDropdown(mealId);
+  selectFood(mealId, food);
+}
+
+function highlightItem(mealId, idx) {
+  document.querySelectorAll(`#dropdown-${mealId} .autocomplete-item`).forEach((el,i) => {
+    el.classList.toggle('focused', i === idx);
+  });
+}
+
+let searchFocusIdx = {};
+function handleSearchKey(e, mealId) {
+  const dd = document.getElementById('dropdown-' + mealId);
+  if (!dd.classList.contains('open')) return;
+  const items = dd.querySelectorAll('.autocomplete-item');
+  if (!items.length) return;
+  if (!searchFocusIdx[mealId]) searchFocusIdx[mealId] = -1;
+  if (e.key === 'ArrowDown') { searchFocusIdx[mealId] = Math.min(searchFocusIdx[mealId]+1, items.length-1); highlightItem(mealId, searchFocusIdx[mealId]); e.preventDefault(); }
+  else if (e.key === 'ArrowUp') { searchFocusIdx[mealId] = Math.max(searchFocusIdx[mealId]-1, 0); highlightItem(mealId, searchFocusIdx[mealId]); e.preventDefault(); }
+  else if (e.key === 'Enter' && searchFocusIdx[mealId] >= 0) { items[searchFocusIdx[mealId]].click(); e.preventDefault(); }
+  else if (e.key === 'Escape') closeDropdown(mealId);
+}
+
+function closeDropdown(mealId) {
+  const dd = document.getElementById('dropdown-' + mealId);
+  if (dd) { dd.classList.remove('open'); dd.innerHTML = ''; }
+  searchFocusIdx[mealId] = -1;
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-wrap')) {
+    MEALS.forEach(m => closeDropdown(m.id));
+  }
+});
+
+// ═══════════════════════════════════════════════════════════
+//  ADD FOOD
+// ═══════════════════════════════════════════════════════════
+function addFood(mealId) {
+  const searchIn = document.getElementById('search-' + mealId);
+  const query = searchIn.value.trim();
+  if (!query) { showToast('Enter a food name', 'error'); return; }
+
+  const state = mealFoodState[mealId];
+  let food = state?.food;
+  let per100g;
+
+  // If no food selected from dropdown, try to find in local DB
+  if (!food) {
+    const local = searchLocalDB(query);
+    if (local.length > 0) food = local[0];
+    else {
+      showToast('Select a food from the dropdown first', 'error'); return;
+    }
+  }
+
+  per100g = food.per100g;
+
+  // Determine grams
+  const grams = calcGramsFromState(mealId);
+  if (!grams || grams <= 0) { showToast('Enter a valid amount', 'error'); return; }
+
+  // Cooking state
+  const showCSel = needsCookingState(food);
+  const cookingState = showCSel ? document.getElementById('cooking-' + mealId).value : null;
+  let factor = grams / 100;
+  if (cookingState === 'raw' && food.rawToCookedFactor) factor = (grams / food.rawToCookedFactor) / 100;
+
+  // Build entry
+  const entry = {
+    name: food.name,
+    grams: Math.round(grams),
+    cookingState,
+    calories: Math.round(per100g.calories * factor),
+    protein: parseFloat((per100g.protein * factor).toFixed(1)),
+    carbs: parseFloat((per100g.carbs * factor).toFixed(1)),
+    fat: parseFloat((per100g.fat * factor).toFixed(1)),
+    b12: parseFloat((per100g.b12 * factor).toFixed(2)),
+    magnesium: parseFloat((per100g.magnesium * factor).toFixed(1)),
+    vitaminD: parseFloat((per100g.vitaminD * factor).toFixed(2)),
+    calcium: parseFloat((per100g.calcium * factor).toFixed(1)),
+    omega3: parseFloat((per100g.omega3 * factor).toFixed(2)),
+    omega6: parseFloat((per100g.omega6 * factor).toFixed(2)),
+    // Qty/grams display info
+    measureMode: state ? state.mode : 'grams',
+    qty: state ? (state.qty || 1) : null,
+    sizeLabel: (() => {
+      if (!state || state.mode !== 'qty') return null;
+      if (food.sizes && food.sizes.length > 0) return food.sizes[state.sizeIdx || 0]?.name || null;
+      return null;
+    })(),
+    unitWeight: (() => {
+      if (!food) return null;
+      if (food.sizes && food.sizes.length > 0) return food.sizes[state?.sizeIdx || 0]?.grams || null;
+      return food.unitWeight || null;
+    })(),
+    hasSizes: !!(food.sizes && food.sizes.length > 0),
+    per100g: { ...per100g },
+    sizes: food.sizes || null,
+  };
+
+  const d = loadData();
+  const log = getDateLog(currentDateStr, d);
+  if (!log.meals[mealId]) log.meals[mealId] = [];
+  log.meals[mealId].push(entry);
+  saveData(d);
+
+  // Reset search row
+  searchIn.value = '';
+  closeDropdown(mealId);
+  if (state) { state.food = null; state.mode = 'grams'; state.qty = 1; state.sizeIdx = 0; }
+  document.getElementById('grams-' + mealId).value = 100;
+  document.getElementById('grams-' + mealId).style.display = 'block';
+  document.getElementById('qsg-' + mealId).classList.remove('visible');
+  document.getElementById('modetoggle-' + mealId).classList.remove('visible');
+  document.getElementById('cooking-' + mealId).classList.remove('visible');
+
+  refreshMeal(mealId);
+  recalcTotals();
+  showToast(`Added ${entry.name}`, 'success');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  ENTRIES TABLE
+// ═══════════════════════════════════════════════════════════
+function refreshMeal(mealId) {
+  const d = loadData();
+  const log = getDateLog(currentDateStr, d);
+  buildEntriesTable(mealId, log.meals[mealId] || []);
+  updateMealTotal(mealId, log.meals[mealId] || []);
+}
+
+function buildEntriesTable(mealId, entries) {
+  const container = document.getElementById('entries-' + mealId);
+  if (!entries.length) {
+    container.innerHTML = `<div class="empty-meal">No foods logged yet</div>`;
+    return;
+  }
+  container.innerHTML = `<table class="food-entries-table">
+    <thead><tr><th>Food</th><th>Amount</th><th>State</th><th>kcal</th><th>Protein</th><th></th></tr></thead>
+    <tbody>${entries.map((e, i) => buildEntryRow(mealId, e, i)).join('')}</tbody>
+  </table>`;
+}
+
+function buildEntryRow(mealId, entry, idx) {
+  const mode = entry.measureMode || 'grams';
+  let amountText = `${entry.grams}g`;
+  if (mode === 'qty' && entry.qty) {
+    if (entry.sizeLabel && entry.unitWeight) {
+      amountText = `${entry.qty} × ${entry.sizeLabel} (${entry.unitWeight}g) = ${entry.grams}g`;
+    } else if (entry.unitWeight) {
+      amountText = `${entry.qty} × ${entry.unitWeight}g = ${entry.grams}g`;
+    } else {
+      amountText = `${entry.qty} pieces = ${entry.grams}g`;
+    }
+  }
+  const stateText = entry.cookingState ? entry.cookingState : '—';
+  return `<tr id="row-${mealId}-${idx}">
+    <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(entry.name)}</td>
+    <td>
+      <span class="amount-display">${amountText}</span>
+    </td>
+    <td style="font-size:0.75rem;color:var(--text3)">${stateText}</td>
+    <td style="color:var(--accent)">${entry.calories}</td>
+    <td style="color:var(--accent2)">${entry.protein}g</td>
     <td>
       <div class="entry-actions">
-        <button class="btn-entry-action btn-edit" onclick="editEntry('${mealId}',${idx})" title="Edit">✏️</button>
-        <button class="btn-entry-action btn-delete" onclick="deleteEntry('${mealId}',${idx})" title="Delete">🗑</button>
+        <button class="btn-entry-action btn-edit" title="Edit" onclick="editEntry('${mealId}',${idx})">✏️</button>
+        <button class="btn-entry-action btn-delete" title="Delete" onclick="deleteEntry('${mealId}',${idx})">🗑️</button>
       </div>
     </td>
   </tr>`;
 }
 
 function editEntry(mealId, idx) {
-  const log = getDateLog(currentDate, appData);
-  const entry = log.meals[mealId][idx];
-  const row = document.getElementById(`entry-row-${mealId}-${idx}`);
-  row.outerHTML = buildEntryRow(mealId, entry, idx, true);
+  const d = loadData();
+  const entry = getDateLog(currentDateStr, d).meals[mealId][idx];
+  const mode = entry.measureMode || 'grams';
+  const tr = document.getElementById(`row-${mealId}-${idx}`);
+  if (!tr) return;
+
+  let amountCell = '';
+  if (mode === 'qty' && entry.qty) {
+    let sizeOpts = '';
+    if (entry.hasSizes && entry.sizes) {
+      sizeOpts = `<select class="entry-edit-select" id="edit-size-${mealId}-${idx}">${entry.sizes.map((s, i) => `<option value="${i}" ${s.name === entry.sizeLabel ? 'selected' : ''}>${s.name}(${s.grams}g)</option>`).join('')}</select>`;
+    }
+    amountCell = `<input type="number" class="entry-edit-input" id="edit-qty-${mealId}-${idx}" value="${entry.qty}" min="0.5" step="0.5" style="width:60px">
+      ${sizeOpts}
+      <span style="font-size:0.72rem;color:var(--text3)">qty</span>`;
+  } else {
+    amountCell = `<input type="number" class="entry-edit-input" id="edit-g-${mealId}-${idx}" value="${entry.grams}" min="1">
+      <span style="font-size:0.72rem;color:var(--text3)">g</span>`;
+  }
+
+  tr.innerHTML = `
+    <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(entry.name)}</td>
+    <td>${amountCell}</td>
+    <td>
+      ${needsCookingState(entry) ? `<select class="entry-edit-select" id="edit-cs-${mealId}-${idx}">
+        <option value="cooked" ${entry.cookingState==='cooked'?'selected':''}>Cooked</option>
+        <option value="raw" ${entry.cookingState==='raw'?'selected':''}>Raw</option>
+      </select>` : '<span style="color:var(--text3);font-size:0.75rem">—</span>'}
+    </td>
+    <td><span id="edit-cal-${mealId}-${idx}" style="color:var(--accent)">${entry.calories}</span></td>
+    <td><span style="color:var(--accent2)">${entry.protein}g</span></td>
+    <td>
+      <div class="entry-actions">
+        <button class="btn-entry-action btn-save-entry" onclick="saveEntryEdit('${mealId}',${idx})">✔</button>
+        <button class="btn-entry-action btn-delete" onclick="cancelEdit('${mealId}',${idx})">✕</button>
+      </div>
+    </td>`;
 }
 
 function saveEntryEdit(mealId, idx) {
-  const log = getDateLog(currentDate, appData);
-  const newName = document.getElementById(`edit-name-${mealId}-${idx}`).value.trim();
-  const newGrams = parseFloat(document.getElementById(`edit-grams-${mealId}-${idx}`).value) || 100;
-  if (!newName) return;
+  const d = loadData();
+  const log = getDateLog(currentDateStr, d);
   const entry = log.meals[mealId][idx];
-  // Recalculate based on new grams
-  const factor = newGrams / entry.grams;
-  entry.name = newName;
-  entry.grams = newGrams;
-  entry.calories = (entry.calories * factor);
-  if (entry.protein) entry.protein *= factor;
-  if (entry.carbs) entry.carbs *= factor;
-  if (entry.fat) entry.fat *= factor;
-  if (entry.b12) entry.b12 *= factor;
-  if (entry.magnesium) entry.magnesium *= factor;
-  if (entry.vitaminD) entry.vitaminD *= factor;
-  if (entry.calcium) entry.calcium *= factor;
-  if (entry.omega3) entry.omega3 *= factor;
-  if (entry.omega6) entry.omega6 *= factor;
-  saveData(appData);
+  const mode = entry.measureMode || 'grams';
+  const per100g = entry.per100g || {};
+
+  let grams, cookingState;
+  if (mode === 'qty' && entry.qty !== undefined) {
+    const qtyEl = document.getElementById(`edit-qty-${mealId}-${idx}`);
+    const sizeEl = document.getElementById(`edit-size-${mealId}-${idx}`);
+    const qty = parseFloat(qtyEl?.value) || 1;
+    let unitW = entry.unitWeight || 100;
+    if (sizeEl && entry.sizes) {
+      const sz = entry.sizes[parseInt(sizeEl.value)] || entry.sizes[0];
+      unitW = sz.grams;
+      entry.sizeLabel = sz.name;
+      entry.unitWeight = sz.grams;
+    }
+    grams = Math.round(qty * unitW);
+    entry.qty = qty;
+  } else {
+    grams = parseFloat(document.getElementById(`edit-g-${mealId}-${idx}`)?.value) || entry.grams;
+  }
+
+  const csEl = document.getElementById(`edit-cs-${mealId}-${idx}`);
+  cookingState = csEl ? csEl.value : entry.cookingState;
+
+  let factor = grams / 100;
+  if (cookingState === 'raw' && entry.rawToCookedFactor) factor = (grams / entry.rawToCookedFactor) / 100;
+
+  entry.grams = grams;
+  entry.cookingState = cookingState;
+  entry.calories = Math.round((per100g.calories || 0) * factor);
+  entry.protein = parseFloat(((per100g.protein || 0) * factor).toFixed(1));
+  entry.carbs = parseFloat(((per100g.carbs || 0) * factor).toFixed(1));
+  entry.fat = parseFloat(((per100g.fat || 0) * factor).toFixed(1));
+  entry.b12 = parseFloat(((per100g.b12 || 0) * factor).toFixed(2));
+  entry.magnesium = parseFloat(((per100g.magnesium || 0) * factor).toFixed(1));
+  entry.vitaminD = parseFloat(((per100g.vitaminD || 0) * factor).toFixed(2));
+  entry.calcium = parseFloat(((per100g.calcium || 0) * factor).toFixed(1));
+  entry.omega3 = parseFloat(((per100g.omega3 || 0) * factor).toFixed(2));
+  entry.omega6 = parseFloat(((per100g.omega6 || 0) * factor).toFixed(2));
+
+  saveData(d);
   refreshMeal(mealId);
-  updateSidebar();
-  showToast('Entry updated', 'success');
+  recalcTotals();
 }
+
+function cancelEdit(mealId, idx) { refreshMeal(mealId); }
 
 function deleteEntry(mealId, idx) {
-  const log = getDateLog(currentDate, appData);
+  const d = loadData();
+  const log = getDateLog(currentDateStr, d);
   log.meals[mealId].splice(idx, 1);
-  saveData(appData);
+  saveData(d);
   refreshMeal(mealId);
-  updateSidebar();
-  showToast('Entry removed', 'info');
-}
-
-function refreshMeal(mealId) {
-  document.getElementById(`entries-wrap-${mealId}`).innerHTML = buildEntriesTable(mealId);
-  updateMealTotal(mealId);
-}
-
-// ═══════════════════════════════════════════════════════════
-//  FOOD SEARCH & AUTOCOMPLETE
-// ═══════════════════════════════════════════════════════════
-function debounceSearch(mealId) {
-  clearTimeout(searchTimers[mealId]);
-  const query = document.getElementById(`search-${mealId}`).value.trim();
-  if (query.length < 2) { closeDropdown(mealId); return; }
-  searchTimers[mealId] = setTimeout(() => performSearch(mealId, query), 300);
-}
-
-async function performSearch(mealId, query) {
-  const dropdown = document.getElementById(`dropdown-${mealId}`);
-  dropdown.innerHTML = `<div class="autocomplete-empty"><span class="spinner"></span> Searching…</div>`;
-  dropdown.classList.add('open');
-
-  let results = [];
-
-  // Check cache first
-  const cacheKey = query.toLowerCase();
-  if (foodCache[cacheKey]) {
-    results = foodCache[cacheKey];
-  } else {
-    // Try USDA API
-    if (appData.apiKey) {
-      try {
-        results = await searchUSDA(query);
-        if (results.length) foodCache[cacheKey] = results;
-        saveCache(foodCache);
-      } catch(e) {
-        console.warn('USDA API error:', e);
-      }
-    }
-
-    // Fallback: local dictionary
-    if (!results.length) {
-      results = searchLocal(query);
-    }
-  }
-
-  renderDropdown(mealId, results, query);
-}
-
-async function searchUSDA(query) {
-  const url = `https://api.nal.usda.gov/fdc/v1/foods/search?query=${encodeURIComponent(query)}&pageSize=8&api_key=${appData.apiKey}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('API error');
-  const data = await res.json();
-  if (!data.foods?.length) return [];
-
-  return data.foods.slice(0, 8).map(f => {
-    const nuts = {};
-    (f.foodNutrients || []).forEach(n => {
-      const nm = n.nutrientName?.toLowerCase() || '';
-      const v = n.value || 0;
-      if (nm.includes('energy') && nm.includes('atwater')) nuts.calories = v;
-      else if (nm === 'energy') nuts.calories = nuts.calories ?? v;
-      else if (nm.includes('protein')) nuts.protein = v;
-      else if (nm.includes('carbohydrate')) nuts.carbs = v;
-      else if (nm.includes('total lipid') || nm === 'fat') nuts.fat = v;
-      else if (nm.includes('vitamin b-12')) nuts.b12 = v;
-      else if (nm.includes('magnesium')) nuts.magnesium = v;
-      else if (nm.includes('vitamin d') && !nm.includes('d2') && !nm.includes('d3')) nuts.vitaminD = v;
-      else if (nm.includes('calcium')) nuts.calcium = v;
-      else if (nm.includes('18:3') && nm.includes('n-3')) nuts.omega3 = v;
-      else if (nm.includes('18:2') && nm.includes('n-6')) nuts.omega6 = v;
-    });
-    // Handle energy from kcal
-    (f.foodNutrients || []).forEach(n => {
-      if ((n.nutrientName||'').toLowerCase().includes('energy') && n.unitName?.toLowerCase()==='kcal') {
-        nuts.calories = n.value;
-      }
-    });
-    return {
-      source: 'usda', fdcId: f.fdcId,
-      name: f.description,
-      brandOwner: f.brandOwner || '',
-      ...nuts,
-      rawToCookedFactor: needsCookingState(f.description) ? 3.0 : null
-    };
-  });
-}
-
-function searchLocal(query) {
-  const q = query.toLowerCase();
-  return Object.entries(INDIAN_FOODS)
-    .filter(([k]) => k.includes(q) || q.includes(k))
-    .slice(0, 6)
-    .map(([k, v]) => ({ source:'local', name: k, ...v }));
-}
-
-function renderDropdown(mealId, results, query) {
-  const dropdown = document.getElementById(`dropdown-${mealId}`);
-  if (!results.length) {
-    dropdown.innerHTML = `<div class="autocomplete-empty">No results found. Try a different name.</div>`;
-    return;
-  }
-  dropdown.innerHTML = results.map((r, i) => `
-    <div class="autocomplete-item" id="aitem-${mealId}-${i}"
-      onclick="selectFood('${mealId}',${i})"
-      onmouseover="setFocused('${mealId}',${i})">
-      <div class="autocomplete-item-name">${r.name}</div>
-      <div class="autocomplete-item-meta">
-        ${r.calories ? Math.round(r.calories) + ' kcal' : '?'} per 100g
-        ${r.protein ? ' · ' + r.protein.toFixed(1) + 'g protein' : ''}
-        ${r.brandOwner ? ' · ' + r.brandOwner : ''}
-      </div>
-      <span class="autocomplete-source ${r.source==='usda'?'source-usda':'source-local'}">${r.source==='usda'?'USDA':'Local'}</span>
-    </div>`).join('');
-  dropdown.setAttribute('data-results', JSON.stringify(results));
-}
-
-function setFocused(mealId, idx) {
-  focusedDropdownItem[mealId] = idx;
-  document.querySelectorAll(`#dropdown-${mealId} .autocomplete-item`).forEach((el,i) => {
-    el.classList.toggle('focused', i===idx);
-  });
-}
-
-function handleSearchKey(e, mealId) {
-  const dropdown = document.getElementById(`dropdown-${mealId}`);
-  if (!dropdown.classList.contains('open')) return;
-  const items = dropdown.querySelectorAll('.autocomplete-item');
-  let cur = focusedDropdownItem[mealId] ?? -1;
-  if (e.key === 'ArrowDown') { cur = Math.min(cur+1, items.length-1); setFocused(mealId, cur); e.preventDefault(); }
-  else if (e.key === 'ArrowUp') { cur = Math.max(cur-1, 0); setFocused(mealId, cur); e.preventDefault(); }
-  else if (e.key === 'Enter') { if (cur >= 0) selectFood(mealId, cur); e.preventDefault(); }
-  else if (e.key === 'Escape') closeDropdown(mealId);
-}
-
-function selectFood(mealId, idx) {
-  const dropdown = document.getElementById(`dropdown-${mealId}`);
-  const results = JSON.parse(dropdown.getAttribute('data-results') || '[]');
-  const food = results[idx];
-  if (!food) return;
-  selectedFood[mealId] = food;
-  document.getElementById(`search-${mealId}`).value = food.name;
-  closeDropdown(mealId);
-  // Show/hide cooking state
-  const sel = document.getElementById(`cooking-${mealId}`);
-  if (food.rawToCookedFactor || needsCookingState(food.name)) {
-    sel.classList.add('visible');
-  } else {
-    sel.classList.remove('visible');
-  }
-}
-
-function closeDropdown(mealId) {
-  const d = document.getElementById(`dropdown-${mealId}`);
-  if (d) { d.classList.remove('open'); d.innerHTML = ''; }
-}
-
-// Click outside to close dropdowns
-document.addEventListener('click', e => {
-  MEALS.forEach(m => {
-    const d = document.getElementById(`dropdown-${m.id}`);
-    const s = document.getElementById(`search-${m.id}`);
-    if (d && s && !d.contains(e.target) && e.target !== s) closeDropdown(m.id);
-  });
-});
-
-// ═══════════════════════════════════════════════════════════
-//  ADD FOOD ENTRY
-// ═══════════════════════════════════════════════════════════
-function addFood(mealId) {
-  const food = selectedFood[mealId];
-  if (!food) { showToast('Please select a food from the dropdown', 'error'); return; }
-  const grams = parseFloat(document.getElementById(`grams-${mealId}`).value) || 100;
-  const sel = document.getElementById(`cooking-${mealId}`);
-  const cookState = sel.classList.contains('visible') ? sel.value : null;
-
-  // Compute factor
-  let factor = grams / 100;
-  if (cookState === 'raw' && food.rawToCookedFactor) {
-    // Nutrients are per 100g raw; user said they want raw grams — just use directly
-    factor = grams / 100;
-  } else if (cookState === 'cooked' && food.rawToCookedFactor) {
-    // Cooked grams → equivalent raw grams = cooked / factor
-    const rawEquiv = grams / food.rawToCookedFactor;
-    factor = rawEquiv / 100;
-  }
-
-  const entry = {
-    name: food.name,
-    grams: grams,
-    cookingState: cookState,
-    calories:   (food.calories   || 0) * factor,
-    protein:    (food.protein    || 0) * factor,
-    carbs:      (food.carbs      || 0) * factor,
-    fat:        (food.fat        || 0) * factor,
-    b12:        (food.b12        || 0) * factor,
-    magnesium:  (food.magnesium  || 0) * factor,
-    vitaminD:   (food.vitaminD   || 0) * factor,
-    calcium:    (food.calcium    || 0) * factor,
-    omega3:     (food.omega3     || 0) * factor,
-    omega6:     (food.omega6     || 0) * factor,
-  };
-
-  const log = getDateLog(currentDate, appData);
-  log.meals[mealId].push(entry);
-  recalcTotals(log);
-  saveData(appData);
-  refreshMeal(mealId);
-  updateSidebar();
-
-  // Reset
-  document.getElementById(`search-${mealId}`).value = '';
-  document.getElementById(`grams-${mealId}`).value = '100';
-  sel.classList.remove('visible');
-  selectedFood[mealId] = null;
-  showToast(`Added ${entry.name} (${Math.round(entry.calories)} kcal)`, 'success');
+  recalcTotals();
+  showToast('Entry deleted', 'info');
 }
 
 // ═══════════════════════════════════════════════════════════
 //  TOTALS & SIDEBAR
 // ═══════════════════════════════════════════════════════════
-function recalcTotals(log) {
-  const t = { calories:0, protein:0, carbs:0, fat:0, b12:0, magnesium:0, vitaminD:0, calcium:0, omega3:0, omega6:0 };
-  Object.values(log.meals).forEach(entries => entries.forEach(e => {
-    Object.keys(t).forEach(k => { t[k] += (e[k] || 0); });
-  }));
-  log.totals = t;
+function recalcTotals() {
+  const d = loadData();
+  const log = getDateLog(currentDateStr, d);
+  const totals = { calories:0, protein:0, carbs:0, fat:0, b12:0, magnesium:0, vitaminD:0, calcium:0, omega3:0, omega6:0 };
+  MEALS.forEach(m => {
+    (log.meals[m.id] || []).forEach(e => {
+      totals.calories += e.calories || 0;
+      totals.protein += e.protein || 0;
+      totals.carbs += e.carbs || 0;
+      totals.fat += e.fat || 0;
+      totals.b12 += e.b12 || 0;
+      totals.magnesium += e.magnesium || 0;
+      totals.vitaminD += e.vitaminD || 0;
+      totals.calcium += e.calcium || 0;
+      totals.omega3 += e.omega3 || 0;
+      totals.omega6 += e.omega6 || 0;
+    });
+  });
+  log.totals = totals;
+  saveData(d);
+  updateSidebar(totals, d.goals);
 }
 
-function updateMealTotal(mealId) {
-  const log = getDateLog(currentDate, appData);
-  const entries = log.meals[mealId] || [];
-  const total = entries.reduce((s, e) => s + (e.calories || 0), 0);
-  const label = `${Math.round(total)} kcal`;
-  const el1 = document.getElementById(`meal-total-${mealId}`);
-  const el2 = document.getElementById(`meal-badge-${mealId}`);
-  if (el1) el1.textContent = label;
-  if (el2) el2.textContent = label;
+function updateMealTotal(mealId, entries) {
+  const cal = entries.reduce((s, e) => s + (e.calories || 0), 0);
+  const el1 = document.getElementById('meal-cal-' + mealId);
+  const el2 = document.getElementById('meal-badge-' + mealId);
+  if (el1) el1.textContent = cal + ' kcal';
+  if (el2) el2.textContent = cal + ' kcal';
 }
 
 function updateAllMealTotals() {
-  MEALS.forEach(m => updateMealTotal(m.id));
+  const d = loadData();
+  const log = getDateLog(currentDateStr, d);
+  MEALS.forEach(m => updateMealTotal(m.id, log.meals[m.id] || []));
 }
 
-function updateSidebar() {
-  const log = getDateLog(currentDate, appData);
-  recalcTotals(log);
-  saveData(appData);
-  const t = log.totals;
-  const g = appData.goals;
-
-  // Calories big number
-  document.getElementById('sb-calories').textContent = Math.round(t.calories || 0);
-  document.getElementById('sb-calories-goal').textContent = `Goal: ${g.calories} kcal`;
-
-  // Rings
-  buildRings(t, g);
-  // Micro bars
-  buildMicroBars(t, g);
-  // Meal totals
-  updateAllMealTotals();
+function updateSidebar(totals, goals) {
+  const sb = id => document.getElementById(id);
+  if (sb('sb-calories')) sb('sb-calories').textContent = Math.round(totals.calories);
+  if (sb('sb-calories-goal')) sb('sb-calories-goal').textContent = `Goal: ${goals.calories} kcal`;
+  buildRings(totals, goals);
+  buildMicroBars(totals, goals);
 }
 
-// ─── RINGS ───────────────────────────────────────────────
-const RING_DEFS = [
-  { key:'calories', label:'Calories', goalKey:'calories', color:'#00e5a0', unit:'kcal' },
-  { key:'protein',  label:'Protein',  goalKey:'protein',  color:'#4f9eff', unit:'g' },
-  { key:'carbs',    label:'Carbs',    goalKey:'carbs',    color:'#ffb547', unit:'g' },
-  { key:'fat',      label:'Fat',      goalKey:'fat',      color:'#ff4f6a', unit:'g' },
-];
-
-function buildRings(t, g) {
+function buildRings(totals, goals) {
   const container = document.getElementById('rings-container');
-  container.innerHTML = RING_DEFS.map(r => {
-    const val  = t[r.key] || 0;
-    const goal = g[r.goalKey] || 1;
-    const pct  = Math.min(val / goal, 1);
-    const R=36, C=2*Math.PI*R, dash=pct*C;
+  if (!container) return;
+  const rings = [
+    {key:'calories',label:'Calories',color:'#00e5a0',val:Math.round(totals.calories),goal:goals.calories,unit:'kcal'},
+    {key:'protein',label:'Protein',color:'#4f9eff',val:(totals.protein||0).toFixed(1),goal:goals.protein,unit:'g'},
+    {key:'carbs',label:'Carbs',color:'#ffb547',val:(totals.carbs||0).toFixed(1),goal:goals.carbs,unit:'g'},
+    {key:'fat',label:'Fat',color:'#ff4f6a',val:(totals.fat||0).toFixed(1),goal:goals.fat,unit:'g'},
+  ];
+  container.innerHTML = rings.map(r => {
+    const pct = Math.min((parseFloat(r.val) / r.goal) * 100, 100);
+    const radius = 30, circ = 2 * Math.PI * radius;
+    const dash = (pct / 100) * circ;
     return `<div class="ring-item">
-      <svg width="90" height="90" viewBox="0 0 90 90">
-        <circle cx="45" cy="45" r="${R}" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="7"/>
-        <circle cx="45" cy="45" r="${R}" fill="none" stroke="${r.color}" stroke-width="7"
-          stroke-dasharray="${dash} ${C}" stroke-dashoffset="${C*0.25}"
-          stroke-linecap="round" style="transition:stroke-dasharray 0.6s cubic-bezier(0.4,0,0.2,1)"/>
-        <text x="45" y="41" text-anchor="middle" fill="${r.color}" font-size="11" font-family="Syne,sans-serif" font-weight="700">${val < 100 ? val.toFixed(1) : Math.round(val)}</text>
-        <text x="45" y="54" text-anchor="middle" fill="#8a96a8" font-size="8.5" font-family="DM Sans,sans-serif">${r.unit}</text>
-      </svg>
+      <div class="ring-svg">
+        <svg width="76" height="76" viewBox="0 0 76 76">
+          <circle cx="38" cy="38" r="${radius}" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="6"/>
+          <circle cx="38" cy="38" r="${radius}" fill="none" stroke="${r.color}" stroke-width="6"
+            stroke-dasharray="${dash} ${circ - dash}" stroke-dashoffset="${circ / 4}"
+            stroke-linecap="round" style="transition:stroke-dasharray 0.6s"/>
+          <text x="38" y="42" text-anchor="middle" font-size="12" font-weight="700" fill="${r.color}" font-family="Syne,sans-serif">${r.val}</text>
+        </svg>
+      </div>
       <div class="ring-label">${r.label}</div>
-      <div class="ring-pct">${Math.round(pct*100)}% of goal</div>
+      <div class="ring-pct">${Math.round(pct)}% of goal</div>
     </div>`;
   }).join('');
 }
 
-// ─── MICRO BARS ───────────────────────────────────────────
-const MICRO_DEFS = [
-  { key:'b12',       label:'Vitamin B12', goalKey:'b12',       unit:'µg',  color:'#00e5a0' },
-  { key:'magnesium', label:'Magnesium',   goalKey:'magnesium', unit:'mg',  color:'#4f9eff' },
-  { key:'vitaminD',  label:'Vitamin D',   goalKey:'vitaminD',  unit:'µg',  color:'#ffb547' },
-  { key:'calcium',   label:'Calcium',     goalKey:'calcium',   unit:'mg',  color:'#ff9f7f' },
-  { key:'omega3',    label:'Omega-3',     goalKey:'omega3',    unit:'g',   color:'#a78bfa' },
-  { key:'omega6',    label:'Omega-6',     goalKey:'omega6',    unit:'g',   color:'#f472b6' },
-];
-function buildMicroBars(t, g) {
+function buildMicroBars(totals, goals) {
   const container = document.getElementById('micro-bars-container');
-  container.innerHTML = MICRO_DEFS.map(m => {
-    const val  = t[m.key] || 0;
-    const goal = g[m.goalKey] || 1;
-    const pct  = Math.min(val / goal * 100, 100);
-    const disp = val < 10 ? val.toFixed(2) : Math.round(val);
+  if (!container) return;
+  const micros = [
+    {label:'Vitamin B12',key:'b12',goal:goals.b12,unit:'µg',color:'#4f9eff'},
+    {label:'Magnesium',key:'magnesium',goal:goals.magnesium,unit:'mg',color:'#00e5a0'},
+    {label:'Vitamin D',key:'vitaminD',goal:goals.vitaminD,unit:'µg',color:'#ffb547'},
+    {label:'Calcium',key:'calcium',goal:goals.calcium,unit:'mg',color:'#ff4f6a'},
+    {label:'Omega-3',key:'omega3',goal:goals.omega3,unit:'g',color:'#a78bfa'},
+    {label:'Omega-6',key:'omega6',goal:goals.omega6,unit:'g',color:'#34d399'},
+  ];
+  container.innerHTML = micros.map(m => {
+    const val = (totals[m.key] || 0);
+    const pct = Math.min((val / m.goal) * 100, 100);
     return `<div class="micro-bar-item">
       <div class="micro-bar-header">
         <span class="micro-bar-name">${m.label}</span>
-        <span class="micro-bar-vals">${disp} / ${goal} ${m.unit}</span>
+        <span class="micro-bar-vals">${val.toFixed(2)} / ${m.goal} ${m.unit}</span>
       </div>
-      <div class="micro-bar-track">
-        <div class="micro-bar-fill" style="width:${pct}%;background:${m.color}"></div>
-      </div>
+      <div class="micro-bar-track"><div class="micro-bar-fill" style="width:${pct}%;background:${m.color}"></div></div>
     </div>`;
   }).join('');
 }
 
 // ═══════════════════════════════════════════════════════════
-//  DATE NAVIGATION
+//  DATE NAV
 // ═══════════════════════════════════════════════════════════
+function setDateHeader() {
+  const today = isToday(currentDateStr);
+  const opts = {weekday:'long',year:'numeric',month:'long',day:'numeric'};
+  document.getElementById('today-date-display').textContent = currentDate.toLocaleDateString('en-IN', opts);
+  document.getElementById('today-date-sub').innerHTML = today
+    ? '<span style="color:var(--accent)">● Today</span>'
+    : `<span style="color:var(--text2)">${currentDateStr}</span>`;
+}
+
 function changeDay(delta) {
-  const d = new Date(currentDate);
-  d.setDate(d.getDate() + delta);
-  currentDate = d.toISOString().split('T')[0];
+  currentDate.setDate(currentDate.getDate() + delta);
+  currentDateStr = toDateStr(currentDate);
   setDateHeader();
-  buildMealCards();
-  updateSidebar();
+  MEALS.forEach(m => refreshMeal(m.id));
+  recalcTotals();
 }
 function goToday() {
-  currentDate = todayStr();
-  setDateHeader();
-  buildMealCards();
-  updateSidebar();
-}
-function setDateHeader() {
-  const d = new Date(currentDate + 'T00:00:00');
-  const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
-  document.getElementById('today-date-display').textContent = d.toLocaleDateString('en-IN', opts);
-  const isToday = currentDate === todayStr();
-  document.getElementById('today-date-sub').textContent = isToday ? '🟢 Today' : (currentDate < todayStr() ? '📅 Past' : '🔮 Future');
+  currentDate = new Date(); currentDateStr = toDateStr(currentDate);
+  setDateHeader(); MEALS.forEach(m => refreshMeal(m.id)); recalcTotals();
 }
 
 // ═══════════════════════════════════════════════════════════
-//  HISTORY PAGE
+//  HISTORY
 // ═══════════════════════════════════════════════════════════
 function loadHistory() {
   const input = document.getElementById('history-date-input');
-  if (!input.value) { input.value = currentDate; }
-  const date = input.value;
-  const log = appData.logs[date];
-  const content = document.getElementById('history-content');
-  if (!log) {
-    content.innerHTML = `<div class="history-empty">No data for ${date}</div>`;
-    return;
-  }
-  const mealSections = MEALS.map(m => {
+  const ds = input.value || currentDateStr;
+  input.value = ds;
+  const d = loadData();
+  const log = d.logs[ds];
+  const container = document.getElementById('history-content');
+  if (!log) { container.innerHTML = `<div class="history-empty">No data for this date.</div>`; return; }
+  const totals = log.totals || {};
+  let html = `<div class="glass-card history-log-card">`;
+  MEALS.forEach(m => {
     const entries = log.meals[m.id] || [];
-    if (!entries.length) return '';
-    return `<div class="history-meal-section">
-      <div class="history-meal-name">${m.icon} ${m.name}</div>
-      ${entries.map(e => `<div class="history-entry-row">
-        <span>${e.name} (${e.grams}g${e.cookingState?' · '+e.cookingState:''})</span>
-        <span style="color:var(--accent)">${Math.round(e.calories)} kcal</span>
-      </div>`).join('')}
+    if (!entries.length) return;
+    html += `<div class="history-meal-section"><div class="history-meal-name">${m.icon} ${m.label}</div>
+      ${entries.map(e => `<div class="history-entry-row"><span>${escHtml(e.name)}</span><span>${e.calories} kcal · ${e.protein}g P</span></div>`).join('')}
     </div>`;
-  }).filter(Boolean).join('');
-
-  const t = log.totals;
-  content.innerHTML = `
-    <div class="glass-card history-log-card">
-      ${mealSections || '<div class="history-meal-section" style="color:var(--text2);font-size:0.85rem">No entries</div>'}
-      <div class="history-totals-row">
-        ${[['Calories','calories','kcal','var(--accent)'],['Protein','protein','g','var(--accent2)'],['Carbs','carbs','g','var(--warning)'],['Fat','fat','g','var(--danger)']].map(([l,k,u,c])=>`
-          <div class="history-total-item">
-            <div class="history-total-val" style="color:${c}">${Math.round(t&&t[k]||0)}<span style="font-size:0.7rem;font-weight:400;color:var(--text3)"> ${u}</span></div>
-            <div class="history-total-label">${l}</div>
-          </div>`).join('')}
-      </div>
-    </div>`;
+  });
+  html += `<div class="history-totals-row">
+    ${[['Calories',Math.round(totals.calories||0),'kcal'],['Protein',(totals.protein||0).toFixed(1),'g'],['Carbs',(totals.carbs||0).toFixed(1),'g'],['Fat',(totals.fat||0).toFixed(1),'g']].map(([l,v,u]) =>
+      `<div class="history-total-item"><div class="history-total-val">${v}</div><div class="history-total-label">${l} (${u})</div></div>`).join('')}
+  </div></div>`;
+  container.innerHTML = html;
 }
 
 // ═══════════════════════════════════════════════════════════
-//  ANALYTICS PAGE
+//  ANALYTICS
 // ═══════════════════════════════════════════════════════════
-function setAnalyticsPeriod(days) {
-  analyticsPeriod = days;
-  document.getElementById('toggle-7').classList.toggle('active', days===7);
-  document.getElementById('toggle-30').classList.toggle('active', days===30);
+function setAnalyticsPeriod(p) {
+  analyticsPeriod = p;
+  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('toggle-' + p)?.classList.add('active');
   loadAnalytics();
 }
 
-function getAnalyticsData(days) {
-  const rows = [];
-  for (let i = days-1; i >= 0; i--) {
-    const d = new Date(); d.setDate(d.getDate() - i);
-    const ds = d.toISOString().split('T')[0];
-    const log = appData.logs[ds];
-    const t = log?.totals || {};
-    rows.push({ date: ds, calories: Math.round(t.calories||0), protein: +(t.protein||0).toFixed(1),
-      carbs: Math.round(t.carbs||0), fat: Math.round(t.fat||0),
-      b12: +(t.b12||0).toFixed(2), vitaminD: +(t.vitaminD||0).toFixed(1), calcium: Math.round(t.calcium||0) });
-  }
-  return rows;
-}
-
 function loadAnalytics() {
-  const rows = getAnalyticsData(analyticsPeriod);
-  const labels = rows.map(r => { const d=new Date(r.date+'T00:00:00'); return d.toLocaleDateString('en-IN',{month:'short',day:'numeric'}); });
-
-  // Destroy old charts
-  if (calChart) { calChart.destroy(); calChart = null; }
-  if (proteinChart) { proteinChart.destroy(); proteinChart = null; }
-
-  Chart.defaults.color = '#8a96a8';
-  Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
-
-  const calCtx = document.getElementById('cal-chart').getContext('2d');
-  calChart = new Chart(calCtx, {
-    type: 'bar',
-    data: {
-      labels,
-      datasets:[{ label:'Calories', data: rows.map(r=>r.calories),
-        backgroundColor: 'rgba(0,229,160,0.25)', borderColor:'#00e5a0', borderWidth:2, borderRadius:6 }]
-    },
-    options: {
-      responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{display:false} },
-      scales:{ x:{grid:{color:'rgba(255,255,255,0.04)'}}, y:{grid:{color:'rgba(255,255,255,0.04)'},beginAtZero:true} }
-    }
+  const d = loadData();
+  const days = [], calData = [], protData = [];
+  for (let i = analyticsPeriod - 1; i >= 0; i--) {
+    const date = new Date(); date.setDate(date.getDate() - i);
+    const ds = toDateStr(date);
+    const log = d.logs[ds];
+    days.push(date.toLocaleDateString('en-IN', {month:'short', day:'numeric'}));
+    calData.push(Math.round(log?.totals?.calories || 0));
+    protData.push(parseFloat((log?.totals?.protein || 0).toFixed(1)));
+  }
+  const chartOpts = (label, data, color) => ({
+    data: {labels: days, datasets: [{label, data, borderColor: color, backgroundColor: color + '22', tension: 0.4, fill: true, pointBackgroundColor: color}]},
+    options: {responsive: true, maintainAspectRatio: false, plugins: {legend:{display:false}},
+      scales: {x:{ticks:{color:'#5a6475',font:{size:10}}},y:{ticks:{color:'#5a6475',font:{size:10}},grid:{color:'rgba(255,255,255,0.04)'}}}},
+    type: 'line'
   });
+  if (calChart) calChart.destroy();
+  if (proteinChart) proteinChart.destroy();
+  calChart = new Chart(document.getElementById('cal-chart'), chartOpts('Calories', calData, '#00e5a0'));
+  proteinChart = new Chart(document.getElementById('protein-chart'), chartOpts('Protein(g)', protData, '#4f9eff'));
 
-  const protCtx = document.getElementById('protein-chart').getContext('2d');
-  proteinChart = new Chart(protCtx, {
-    type: 'line',
-    data: {
-      labels,
-      datasets:[{ label:'Protein (g)', data: rows.map(r=>r.protein),
-        borderColor:'#4f9eff', backgroundColor:'rgba(79,158,255,0.1)',
-        pointBackgroundColor:'#4f9eff', pointRadius:4, tension:0.4, fill:true }]
-    },
-    options: {
-      responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{display:false} },
-      scales:{ x:{grid:{color:'rgba(255,255,255,0.04)'}}, y:{grid:{color:'rgba(255,255,255,0.04)'},beginAtZero:true} }
-    }
-  });
-
-  // Table
   const tbody = document.getElementById('analytics-tbody');
-  tbody.innerHTML = rows.map(r => `<tr>
-    <td>${r.date}</td>
-    <td style="color:var(--accent)">${r.calories}</td>
-    <td style="color:var(--accent2)">${r.protein}g</td>
-    <td style="color:var(--warning)">${r.carbs}g</td>
-    <td style="color:var(--danger)">${r.fat}g</td>
-    <td>${r.b12}</td><td>${r.vitaminD}</td><td>${r.calcium}</td>
-  </tr>`).join('');
+  const rows = days.map((day, i) => {
+    const ds = toDateStr((() => { const date = new Date(); date.setDate(date.getDate() - (analyticsPeriod - 1 - i)); return date; })());
+    const t = d.logs[ds]?.totals || {};
+    return `<tr><td>${day}</td><td>${Math.round(t.calories||0)}</td><td>${(t.protein||0).toFixed(1)}g</td><td>${(t.carbs||0).toFixed(1)}g</td><td>${(t.fat||0).toFixed(1)}g</td><td>${(t.b12||0).toFixed(2)}</td><td>${(t.vitaminD||0).toFixed(2)}</td><td>${(t.calcium||0).toFixed(0)}</td></tr>`;
+  });
+  tbody.innerHTML = rows.join('');
 }
 
 // ═══════════════════════════════════════════════════════════
-//  GOALS PAGE
+//  GOALS
 // ═══════════════════════════════════════════════════════════
 const GOAL_FIELDS = [
-  { key:'calories',  label:'Calories',    unit:'kcal', step:50, min:500  },
-  { key:'protein',   label:'Protein',     unit:'g',    step:5,  min:10   },
-  { key:'carbs',     label:'Carbs',       unit:'g',    step:10, min:20   },
-  { key:'fat',       label:'Fat',         unit:'g',    step:5,  min:10   },
-  { key:'b12',       label:'Vitamin B12', unit:'µg',   step:0.1,min:0    },
-  { key:'magnesium', label:'Magnesium',   unit:'mg',   step:10, min:0    },
-  { key:'vitaminD',  label:'Vitamin D',   unit:'µg',   step:1,  min:0    },
-  { key:'calcium',   label:'Calcium',     unit:'mg',   step:50, min:0    },
-  { key:'omega3',    label:'Omega-3',     unit:'g',    step:0.1,min:0    },
-  { key:'omega6',    label:'Omega-6',     unit:'g',    step:0.5,min:0    },
+  {key:'calories',label:'Calories',unit:'kcal'},
+  {key:'protein',label:'Protein',unit:'g'},
+  {key:'carbs',label:'Carbohydrates',unit:'g'},
+  {key:'fat',label:'Fat',unit:'g'},
+  {key:'b12',label:'Vitamin B12',unit:'µg'},
+  {key:'magnesium',label:'Magnesium',unit:'mg'},
+  {key:'vitaminD',label:'Vitamin D',unit:'µg'},
+  {key:'calcium',label:'Calcium',unit:'mg'},
+  {key:'omega3',label:'Omega-3',unit:'g'},
+  {key:'omega6',label:'Omega-6',unit:'g'},
 ];
 
 function loadGoals() {
-  const g = appData.goals;
-  const form = document.getElementById('goals-form');
-  form.innerHTML = GOAL_FIELDS.map(f => `
-    <div class="goal-field">
-      <label class="goal-label">${f.label} <span class="goal-unit">(${f.unit})</span></label>
-      <input type="number" class="goal-input" id="goal-${f.key}" value="${g[f.key] ?? DEFAULT_GOALS[f.key]}" step="${f.step}" min="${f.min}">
+  const d = loadData();
+  const goals = {...DEFAULT_GOALS, ...d.goals};
+  document.getElementById('goals-form').innerHTML = GOAL_FIELDS.map(f =>
+    `<div class="goal-field">
+      <label class="goal-label">${f.label}</label>
+      <input type="number" class="goal-input" id="goal-${f.key}" value="${goals[f.key]}" step="any">
+      <span class="goal-unit">${f.unit}</span>
     </div>`).join('') +
-    `<button class="btn-save-goals" onclick="saveGoals()">💾 Save Goals</button>`;
+    `<button class="btn-save-goals" onclick="saveGoals()">Save Goals</button>`;
 }
 
 function saveGoals() {
-  GOAL_FIELDS.forEach(f => {
-    const v = parseFloat(document.getElementById(`goal-${f.key}`).value);
-    if (!isNaN(v) && v >= 0) appData.goals[f.key] = v;
-  });
-  saveData(appData);
-  updateSidebar();
-  showToast('Goals saved & updated!', 'success');
+  const d = loadData();
+  GOAL_FIELDS.forEach(f => { const el = document.getElementById('goal-' + f.key); if (el) d.goals[f.key] = parseFloat(el.value) || DEFAULT_GOALS[f.key]; });
+  saveData(d);
+  recalcTotals();
+  showToast('Goals saved!', 'success');
 }
 
 // ═══════════════════════════════════════════════════════════
-//  TOAST NOTIFICATIONS
+//  UTILITIES
 // ═══════════════════════════════════════════════════════════
-function showToast(msg, type='info') {
-  const container = document.getElementById('toast-container');
-  const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  toast.textContent = msg;
-  container.appendChild(toast);
-  setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(20px)'; toast.style.transition = '0.3s'; }, 2500);
-  setTimeout(() => toast.remove(), 2800);
+function escHtml(str) { return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function showToast(msg, type = 'info') {
+  const c = document.getElementById('toast-container');
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.textContent = msg;
+  c.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(() => t.remove(), 300); }, 2800);
 }
 
 // ═══════════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════════
 function init() {
-  // Set history date input default
-  document.getElementById('history-date-input').value = todayStr();
-  // Set date header
-  setDateHeader();
+
   // Build meal cards
   buildMealCards();
-  // Update sidebar
-  updateSidebar();
-  // Update key status
-  updateKeyStatus();
-  // Preload API key if set
-  if (appData.apiKey) {
-    document.getElementById('api-key-input').placeholder = '••••••••••••••••••••••••••••••';
-  }
-  // Show today page (hide hero for returning users with data)
-  const hasData = Object.keys(appData.logs).length > 0;
-  if (hasData) {
-    showPage('today');
-  } else {
-    showPage('hero');
-  }
+
+  // Init meal food state
+  MEALS.forEach(m => initMealFoodState(m.id));
+
+  // Set date header
+  setDateHeader();
+
+  // Load today's data
+  MEALS.forEach(m => refreshMeal(m.id));
+  recalcTotals();
+
+  // History date default
+  const histInput = document.getElementById('history-date-input');
+  if (histInput) histInput.value = currentDateStr;
 }
 
-document.addEventListener('DOMContentLoaded', init);
+init();
 </script>
 </body>
 </html>
