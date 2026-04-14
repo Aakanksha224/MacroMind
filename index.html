@@ -9,6 +9,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
 <style>
 /* ===================== CSS RESET & TOKENS ===================== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -368,6 +371,23 @@ input, select, textarea { font-family: var(--font-body); outline: none; }
 </head>
 <body>
 
+<!-- ===================== AUTHENTICATION ===================== -->
+<div id="auth-wrapper" style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; background: var(--bg); padding: 24px;">
+  <div class="glass-card" style="width: 100%; max-width: 400px; text-align: center; padding: 40px 24px;">
+    <div style="font-size: 3rem; margin-bottom: 16px;">🧠</div>
+    <h2 style="font-family: var(--font-heading); margin-bottom: 8px;">Welcome to MacroMind</h2>
+    <p style="color: var(--text2); margin-bottom: 32px;">Log in to sync your nutrition data.</p>
+    
+    <input type="email" id="auth-email" placeholder="Email Address" class="history-date-input" style="width:100%; margin-bottom: 12px; background: rgba(0,0,0,0.3); color: white;">
+    <input type="password" id="auth-password" placeholder="Password" class="history-date-input" style="width:100%; margin-bottom: 24px; background: rgba(0,0,0,0.3); color: white;">
+    
+    <button class="btn-primary" onclick="handleLogin()" style="width:100%; margin-bottom: 12px; display:block; text-align:center;">Log In</button>
+    <button class="btn-secondary" onclick="handleSignUp()" style="width:100%; display:block; text-align:center;">Create Account</button>
+    <div id="auth-error" style="color:#ff6b6b; font-size:0.875rem; margin-top:20px; min-height:20px;"></div>
+  </div>
+</div>
+
+<div id="app-wrapper" style="display: none;">
 <!-- ===================== NAVIGATION ===================== -->
 <nav class="nav" id="main-nav">
   <div class="nav-logo">
@@ -380,6 +400,7 @@ input, select, textarea { font-family: var(--font-body); outline: none; }
     <button class="nav-tab" id="tab-history" onclick="showPage('history'); loadHistory()">History</button>
     <button class="nav-tab" id="tab-analytics" onclick="showPage('analytics'); loadAnalytics()">Analytics</button>
     <button class="nav-tab" id="tab-goals" onclick="showPage('goals'); loadGoals()">Goals</button>
+    <button class="nav-tab" style="color: #ff6b6b;" onclick="handleLogout()">Log Out</button>
   </div>
 
 </nav>
@@ -490,8 +511,76 @@ input, select, textarea { font-family: var(--font-body); outline: none; }
 </div>
 
 <div id="toast-container"></div>
+</div> <!-- END APP-WRAPPER -->
 
 <script>
+// ═══════════════════════════════════════════════════════════
+//  FIREBASE CONFIGURATION & AUTH 
+// ═══════════════════════════════════════════════════════════
+const firebaseConfig = {
+  apiKey: "AIzaSyDVESjNzq9TOdQBvlyaPNARoM9GDJVKp0A",
+  authDomain: "macromind-4438e.firebaseapp.com",
+  projectId: "macromind-4438e",
+  storageBucket: "macromind-4438e.firebasestorage.app",
+  messagingSenderId: "206510497106",
+  appId: "1:206510497106:web:d6bcf0b13727d74c52ee8b"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+let appData = null; // Global data state
+
+auth.onAuthStateChanged(async (user) => {
+  if (user) {
+    document.getElementById('auth-wrapper').style.display = 'none';
+    document.getElementById('auth-error').innerText = "Loading data...";
+    
+    try {
+      const docSnap = await db.collection('users').doc(user.uid).get();
+      if (docSnap.exists) {
+        appData = docSnap.data();
+        if(!appData.goals) appData.goals = {...DEFAULT_GOALS};
+      } else {
+        // Initialize new user
+        appData = { logs: {}, goals: { ...DEFAULT_GOALS } };
+        await db.collection('users').doc(user.uid).set(appData);
+      }
+      document.getElementById('app-wrapper').style.display = 'block';
+      init(); // Render application with loaded appData
+    } catch (err) {
+      console.error(err);
+      document.getElementById('auth-error').innerText = "Failed to load database. Please try again.";
+      document.getElementById('auth-wrapper').style.display = 'flex';
+      auth.signOut();
+    }
+  } else {
+    appData = null;
+    document.getElementById('app-wrapper').style.display = 'none';
+    document.getElementById('auth-wrapper').style.display = 'flex';
+    document.getElementById('auth-error').innerText = "";
+  }
+});
+
+function handleLogin() {
+  const e = document.getElementById('auth-email').value;
+  const p = document.getElementById('auth-password').value;
+  if(!e || !p) return (document.getElementById('auth-error').innerText = "Enter email and password.");
+  document.getElementById('auth-error').innerText = "Logging in...";
+  auth.signInWithEmailAndPassword(e, p).catch(err => document.getElementById('auth-error').innerText = err.message);
+}
+
+function handleSignUp() {
+  const e = document.getElementById('auth-email').value;
+  const p = document.getElementById('auth-password').value;
+  if(!e || !p) return (document.getElementById('auth-error').innerText = "Enter email and password.");
+  document.getElementById('auth-error').innerText = "Creating account...";
+  auth.createUserWithEmailAndPassword(e, p).catch(err => document.getElementById('auth-error').innerText = err.message);
+}
+
+function handleLogout() {
+  auth.signOut();
+}
 // ═══════════════════════════════════════════════════════════
 //  SIZE PRESETS
 // ═══════════════════════════════════════════════════════════
@@ -939,8 +1028,16 @@ const DEFAULT_GOALS = { calories:2000, protein:75, carbs:250, fat:70, b12:2.4, m
 // USDA FoodData Central API key — hardcoded, no user input needed
 const USDA_API_KEY = 'DEMO_KEY';
 
-function loadData() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {logs:{},goals:{...DEFAULT_GOALS}}; } catch { return {logs:{},goals:{...DEFAULT_GOALS}}; } }
-function saveData(d) { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
+function loadData() { 
+  if (!appData) return {logs:{},goals:{...DEFAULT_GOALS}}; // Fallback (shouldn't happen post-init)
+  return appData;
+}
+function saveData(d) {
+  appData = d;
+  if (auth.currentUser) {
+    db.collection('users').doc(auth.currentUser.uid).set(d, { merge: true }).catch(console.error);
+  }
+}
 function loadCache() { try { return JSON.parse(localStorage.getItem(CACHE_KEY)) || {}; } catch { return {}; } }
 function saveCache(c) { localStorage.setItem(CACHE_KEY, JSON.stringify(c)); }
 
@@ -1930,7 +2027,7 @@ function init() {
   if (histInput) histInput.value = currentDateStr;
 }
 
-init();
+// Initialization is now handled by the Firebase auth listener (see onAuthStateChanged)
 </script>
 </body>
 </html>
